@@ -10,18 +10,37 @@
    - 2.2 Core Resources
    - 2.3 Core Resolution Mechanic
    - 2.4 HP & Qi Formulas
+     - HP & Qi Recovery
    - 2.5 Combat
    - 2.6 Strain System
 3. [Cultivation Progression](#3-cultivation-progression)
    - 3.1 Realm & Rank Structure
    - 3.2 Spirit Energy (SE) System
+     - SE Thresholds
+     - Typical SE Awards
+     - Meditation SE Gain
    - 3.3 Peak State & Overconsumption
    - 3.4 Major Realm Breakthroughs (Tribulations)
+     - Sub-Realm Advancement Bonuses
+     - Major Realm Breakthrough Bonuses
+     - Cultivation Regression
+     - Strain Capacity Scaling
+   - 3.5 Comprehension Mechanics
+   - 3.6 Cultivation Technique Switching
 4. [Spirit Roots](#4-spirit-roots)
    - 4.1 Trade-Off Spectrum
-   - 4.2 Tier Specifications
+   - 4.2 Spirit Root Grades
    - 4.3 Breakthrough Difficulty Modifiers
    - 4.4 System Synergy Notes
+5. [Technique Design Matrix](#5-technique-design-matrix)
+   - 5.1 Design Variables
+   - 5.2 AP Cost as a Rough Power Signal
+   - 5.3 Qi Cost Reference
+   - 5.4 Damage Output Reference
+   - 5.5 Utility Techniques
+   - 5.6 Effect Scope by Realm and Rank
+   - 5.7 Strain Costs for Forbidden Techniques
+   - 5.8 Worked Examples
 
 ---
 
@@ -136,7 +155,7 @@ Gained from overusing Qi, casting forbidden arts, or sustaining grievous injurie
 
 ### CRAFTING & AUXILIARY SKILLS (Life Professions)
 
-| Profession | Rank / Tier | Relevant Stat | Specialization / Notes |
+| Profession | Rank | Relevant Stat | Specialization / Notes |
 | :--------- | :---------: | :-----------: | :--------------------- |
 | **Alchemy** *(Pills/Potions)* | \[ \] | **INT** | \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |
 | **Weapon Refining** *(Forging)* | \[ \] | **STR** | \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ |
@@ -207,7 +226,7 @@ All contested rolls and checks use:
 | Alchemy, Arrays, Talisman crafting | INT |
 | Weapon Refining | STR |
 | Beast Taming | CRM |
-| Breakthrough (Tribulation) | SPI — modified by Spirit Root tier (see §4.3) |
+| Breakthrough (Tribulation) | SPI — modified by Spirit Root grade (see §4.3) |
 
 ---
 
@@ -242,6 +261,29 @@ Maximum HP and Qi scale with the character's current **Stage** — a decimal val
 
 Round all results down to the nearest whole number.
 
+#### HP & Qi Recovery
+
+**Short Rest** (1 hour, outside combat):
+- Recover **25% of Max HP** and **25% of Max Qi** (rounded down).
+- Maximum **2 per in-session period** (GM may allow additional rests at their discretion).
+- No Strain is cleared.
+
+**Extended Meditation** (4 hours, uninterrupted, outside combat):
+- Fully restores **Max HP** and **Max Qi**.
+- Clears **1 Strain Level** (Critical → Overloaded → Strained → Clear).
+- Consumes both Short Rest uses for the session.
+
+**Full Rest** (complete downtime between sessions):
+- Fully restores **Max HP** and **Max Qi**.
+- Clears **all Strain**.
+
+**Passive Qi Regeneration (Combat):**
+- Base: **+SPI modifier Qi per turn** (recovered at the start of each turn).
+- Techniques, passive skills, and Magic Treasures may increase this rate.
+- No natural HP regeneration in combat.
+
+**Items in Combat:** Consuming a recovery item costs **1 AP**. Item-specific effects are defined per item card.
+
 ---
 
 ### 2.5 Combat
@@ -257,13 +299,13 @@ Each combatant receives **3 AP** at the start of their turn. Unspent AP does not
 | Action | AP Cost |
 | :----- | :-----: |
 | Basic attack | 1 |
-| Any technique (Martial, Spiritual, or Movement) | 2 |
+| Technique (Martial, Spiritual, or Movement) | 1, 2, or 3 — defined on the technique card |
 | Ultimate ability | 3 (full turn) |
 | Move | 1 |
 
-- A turn may spend AP in any combination (e.g., two basic attacks + one move, or one technique + one move).
-- Ultimate abilities consume all 3 AP. No other actions may be taken on that turn.
-- Movement technique uses the **technique** cost (2 AP), not the move cost.
+- Techniques with a 3 AP cost consume the full turn — no other actions may be taken.
+- Ultimate abilities always cost 3 AP and consume the full turn. Cooldown and use limits are defined per ability card.
+- All other AP combinations are free (e.g., 1 AP technique + 1 AP move + 1 AP basic attack).
 
 #### Basic Attack (No Technique)
 
@@ -326,13 +368,25 @@ Strain represents cumulative damage to a cultivator's Dao Foundation — the spi
 
 #### Threshold Stages
 
-| Stage | Strain % | Roll Penalty | Max HP & QI Reduction |
-| :---- | :------: | :----------: | :-------------------: |
-| *(No penalty)* | 0–25% | — | — |
-| **Strained** | 26–50% | −1 to all rolls | −25% |
-| **Overloaded** | 51–75% | −3 to all rolls | −50% |
-| **Critical** | 76–99% | −5 to all rolls | −75% |
-| **Death** | 100% | Dao Foundation shatters — character death | |
+Strain is tracked as an absolute point value against the character's current **Maximum Strain** (see §3.4 for per-realm values — base 12 at Realm 1, capping at 20 at Realm 8). Thresholds fall at quarter intervals of that maximum.
+
+| Stage | Strain Range | Roll Penalty | Max HP & QI Reduction |
+| :---- | :----------: | :----------: | :-------------------: |
+| *(No penalty)* | 0 – 25% of max | — | — |
+| **Strained** | 26 – 50% of max | −1 to all rolls | −25% |
+| **Overloaded** | 51 – 75% of max | −3 to all rolls | −50% |
+| **Critical** | 76 – 99% of max | −5 to all rolls | −75% |
+| **Death** | 100% of max (at max) | Dao Foundation shatters — character death | |
+
+**Quick reference — discrete thresholds at key realms:**
+
+| Realm | Max Strain | No Penalty | Strained | Overloaded | Critical | Death |
+| :---: | :--------: | :--------: | :------: | :--------: | :------: | :---: |
+| 1 | 12 | 0–3 | 4–6 | 7–9 | 10–11 | 12 |
+| 4 | 15 | 0–3 | 4–7 | 8–11 | 12–14 | 15 |
+| 8 | 20 | 0–5 | 6–10 | 11–15 | 16–19 | 20 |
+
+*(Full table for all 8 realms is in §3.4.)*
 
 HP and QI reductions are applied to the **current maximum** after Stage and attribute formulas are calculated. If current HP or QI exceeds the reduced maximum, it is immediately capped.
 
@@ -340,17 +394,45 @@ HP and QI reductions are applied to the **current maximum** after Stage and attr
 
 | Trigger | Strain Generated |
 | :------ | :--------------- |
-| **Qi overdraft** — using a technique when Qi pool is at 0 | Strain += the full Qi cost of the technique drawn from the body |
+| **Qi overdraft** — using a technique when Qi pool is at 0 | Strain += amount from the Overdraft table below (based on the technique's Qi cost) |
 | **Forbidden / cursed technique** — technique card lists a Strain cost | Strain += the listed Strain cost, paid on use regardless of Qi level |
-| **Tribulation failure** — failing a breakthrough roll | Strain += 25% of maximum Strain |
-| **Grievous injury** — HP drops to 10% or below | Strain rises to **25% of maximum** if currently below that value — capped at the Strained threshold; this trigger cannot push Strain into Overloaded or beyond |
+| **Tribulation failure** — failing a breakthrough roll | Strain += amount from the Tribulation Failure table below |
+| **Grievous injury** — HP drops to 10% or below | Strain rises to the Strained floor value if currently below it — this trigger cannot push Strain into Overloaded or beyond |
+
+**Qi Overdraft Strain Cost** *(based on the technique's Qi cost; minimum 1 Strain)*
+
+| Technique Qi Cost | Strain Generated |
+| :---------------: | :--------------: |
+| 1–8 | +1 |
+| 9–20 | +2 |
+| 21–40 | +3 |
+| 41–65 | +4 |
+| 66+ | +5 |
+
+*These brackets are calibrated to expected Qi cost ranges per realm. See §5.3 for Qi cost reference by realm and rank.*
+
+**Tribulation Failure Strain** *(25% of Max Strain, rounded to nearest whole number)*
+
+| Realms | Strain Added |
+| :----: | :----------: |
+| 1–2 | +3 |
+| 3–6 | +4 |
+| 7–8 | +5 |
+
+**Grievous Injury — Strained Floor** *(Strain rises to this value if currently below it)*
+
+| Realms | Strained Floor |
+| :----: | :------------: |
+| 1–2 | 3 |
+| 3–6 | 4 |
+| 7–8 | 5 |
 
 #### Strain Recovery
 
 | Method | Amount Cleared |
 | :----- | :------------- |
 | **Full rest** (downtime between sessions) | Clears **all Strain** |
-| **Meditation** (in-session, outside combat) | Clears a small fixed amount — defined by the GM based on time spent; typically 5–10% of max Strain per extended meditation period |
+| **Extended Meditation** (4 hours, in-session, outside combat) | Clears **1 Strain stage** (e.g., Critical → Overloaded → Strained → Clear). Consistent with §2.4. |
 | **Restorative pill or item** | Clears a fixed amount or a full stage — defined per item |
 | **Sect healer / NPC treatment** | Clears one full stage per treatment period — requires downtime and access to a qualified healer |
 
@@ -360,17 +442,73 @@ HP and QI reductions are applied to the **current maximum** after Stage and attr
 
 ### 3.1 Realm & Rank Structure
 
-- **Major Realms:** 8 Major Realms total (Earth through Heaven).
+- **Major Realms:** 8 Major Realms total — Body Tempering, Qi Condensation, Foundation Establishment, Core Formation, Nascent Soul, Soul Transformation, Void Tribulation, Immortal Ascension.
 - **Sub-Realms:** Each Major Realm contains 4 Sub-Realms — Early, Mid, Late, Peak.
-- **Sub-Realm Advancement:** Reaching a new Sub-Realm grants minor incremental increases to maximum HP, maximum Qi, and baseline defensive stats.
-- **Major Realm Advancement:** Crossing into a new Major Realm grants substantial structural boosts to maximum HP and Qi.
+- **Sub-Realm Advancement:** Reaching a new Sub-Realm grants **+1 Attribute Point** (freely distributed) plus minor incremental increases to maximum HP and Qi from the Stage formula.
+- **Major Realm Advancement:** Crossing into a new Major Realm grants substantial structural boosts (see §3.4 Breakthrough Bonuses).
 
 ### 3.2 Spirit Energy (SE) System
 
-- SE is cumulative and is **not consumed** upon leveling up.
+- SE is cumulative within a Major Realm and is **not consumed** upon Sub-Realm advancement.
 - Reaching the designated SE threshold automatically unlocks the next Sub-Realm.
-- Successfully crossing into a new Major Realm permanently increases the character's maximum SE cap.
-- A character's accumulated SE and maximum SE cap are **static by default** — they only decrease under adverse conditions: failing a Tribulation, sustaining targeted spiritual injuries, or suffering severe negative status effects.
+- Upon successfully crossing into a new Major Realm (Tribulation passed), SE **resets to 0** for the new realm's progression cycle.
+- A character's accumulated SE is **static by default** within a realm — it only decreases under adverse conditions: failing a Tribulation, sustaining targeted spiritual injuries, or suffering severe negative status effects.
+
+#### SE Thresholds (per Major Realm, resets at breakthrough)
+
+*Accumulation ceases upon reaching Peak Sub-Realm. Must pass a Tribulation to progress further.*
+
+| Realm | Major Realm Name | Early → Mid | Mid → Late | Late → Peak |
+| :---: | :--------------- | :---------: | :--------: | :---------: |
+| 1 | Body Tempering | 400 | 900 | 1,500 |
+| 2 | Qi Condensation | 1,000 | 2,200 | 4,000 |
+| 3 | Foundation Establishment | 2,500 | 5,500 | 10,000 |
+| 4 | Core Formation | 6,000 | 13,000 | 25,000 |
+| 5 | Nascent Soul | 15,000 | 33,000 | 60,000 |
+| 6 | Soul Transformation | 37,000 | 82,000 | 150,000 |
+| 7 | Void Tribulation | 90,000 | 200,000 | 375,000 |
+| 8 | Immortal Ascension | 220,000 | 490,000 | 900,000 |
+
+#### Typical SE Awards (True / 3-Element Spirit Root base rate)
+
+*Spirit Root EXP bonus multiplies all SE earned (e.g., Pure (Heavenly) Root = ×2.0 all SE).*
+
+| Realm | Minor Encounter | Major Encounter | Story Milestone |
+| :---: | :-------------: | :-------------: | :-------------: |
+| 1 | 25 | 65 | 100 |
+| 2 | 65 | 160 | 250 |
+| 3 | 160 | 400 | 625 |
+| 4 | 400 | 1,000 | 1,550 |
+| 5 | 1,000 | 2,500 | 3,800 |
+| 6 | 2,500 | 6,200 | 9,500 |
+| 7 | 6,200 | 15,500 | 23,500 |
+| 8 | 15,500 | 39,000 | 58,000 |
+
+*Scale reference: approximately 8–10 sessions to complete a full Major Realm at base rate.*
+
+#### Meditation SE Gain
+
+Extended Meditation (4 hours) generates SE in addition to restoring HP, Qi, and clearing Strain. Roll once per meditation period:
+
+> **Meditation SE = (1d20 + SPI mod + INT mod) × Cultivation Technique Multiplier × Spirit Root Environment Multiplier**
+
+**Spirit Root Environment Multiplier** — drawn from §4.2:
+
+| Spirit Root | Matching Biome | Multiplier |
+| :---------- | :------------- | :--------: |
+| Pure (Heavenly) | Pure Biome | ×2.0 |
+| Dual | Dual Biome | ×1.75 |
+| True (3-Element) | Triple Biome | ×1.5 |
+| Spurious | Quad Biome | ×1.25 |
+| Mortal (5-Element) | Anywhere | ×1.0 |
+| Any root | Non-matching biome | ×1.0 |
+
+**Cultivation Technique Multiplier** — defined per Primary Cultivation Technique card (system TBD).
+
+**Example** *(SPI 9, INT 9 → both mod +3; True (3-Element) root in matching biome, no technique multiplier yet)*:
+> Roll 14 + 3 + 3 = 20 × 1.5 = **30 SE**
+
+Meditation SE is supplementary — active encounters and story milestones remain the primary progression drivers.
 
 ### 3.3 Peak State & Overconsumption
 
@@ -392,29 +530,146 @@ HP and QI reductions are applied to the **current maximum** after Stage and attr
 
 ---
 
+#### Sub-Realm Advancement Bonuses
+
+Each time a character advances from one Sub-Realm to the next (Early → Mid → Late → Peak) within a Major Realm:
+
+- **+1 Attribute Point** — freely distributed among any of the six core attributes.
+
+#### Major Realm Breakthrough Bonuses
+
+Upon successfully completing a Tribulation and entering the Early Sub-Realm of the next Major Realm, the character gains **all** of the following:
+
+| Bonus | Detail |
+| :---- | :----- |
+| **+3 Attribute Points** | Freely distributed among any attributes |
+| **Equipment Grade Unlock** | Can now attune to and use artifacts of the next realm grade |
+| **Max Strain +1** | Permanent increase to Strain capacity (see Strain Capacity Scaling below) |
+| **Technique Realm Unlock** | Can now learn techniques native to the new Major Realm |
+| **Realm Skill Unlock** | Gain one realm-specific passive or active skill *(list TBD — separate task)* |
+
+#### Cultivation Regression
+
+When a character is demoted by adverse conditions (Tribulation failure, spiritual injury, etc.), previously gained attribute points are lost:
+
+- **−1 Attribute Point per Sub-Realm lost**
+- **−3 Attribute Points per Major Realm lost**
+
+#### Strain Capacity Scaling
+
+Maximum Strain starts at **12** at Realm 1 and increases by **+1 per Major Realm breakthrough**, capping at **20** upon reaching Immortal Ascension. Thresholds remain at quarter intervals.
+
+| Realm | Major Realm | Max Strain | Clear | Strained | Overloaded | Critical | Death |
+| :---: | :---------- | :--------: | :---: | :------: | :--------: | :------: | :---: |
+| 1 | Body Tempering | 12 | 0–3 | 4–6 | 7–9 | 10–11 | 12 |
+| 2 | Qi Condensation | 13 | 0–3 | 4–6 | 7–9 | 10–12 | 13 |
+| 3 | Foundation Establishment | 14 | 0–3 | 4–7 | 8–10 | 11–13 | 14 |
+| 4 | Core Formation | 15 | 0–3 | 4–7 | 8–11 | 12–14 | 15 |
+| 5 | Nascent Soul | 16 | 0–4 | 5–8 | 9–12 | 13–15 | 16 |
+| 6 | Soul Transformation | 17 | 0–4 | 5–8 | 9–12 | 13–16 | 17 |
+| 7 | Void Tribulation | 18 | 0–4 | 5–9 | 10–13 | 14–17 | 18 |
+| 8 | Immortal Ascension | 20 | 0–5 | 6–10 | 11–15 | 16–19 | 20 |
+
+
+---
+
+### 3.6 Cultivation Technique Switching
+
+A character may only have one **Primary Cultivation Technique** active at a time. Switching requires purging the current technique's Qi pathways from the meridian network.
+
+**Requirements:**
+- Current Strain must be below the Overloaded threshold before switching begins.
+- 1 Downtime Unit (1 in-game week) of uninterrupted secluded cultivation.
+
+**Roll:** 1d20 + SPI modifier vs. **DC 12 + current Realm level**
+
+| Realm | Effective DC |
+| :---: | :----------: |
+| 1 | 13 |
+| 2 | 14 |
+| 3 | 15 |
+| 4 | 16 |
+| 5 | 17 |
+| 6 | 18 |
+| 7 | 19 |
+| 8 | 20 |
+
+| Result | Outcome |
+| :----- | :------ |
+| **Success** | Technique switches. Strain +1. |
+| **Failure** | Switch fails. Strain +2. Reattempt allowed next Downtime Unit. |
+| **Critical Failure (nat 1)** | Switch fails. Strain +3. Cannot reattempt for 2 Downtime Units. |
+
+Strain cost on success is unavoidable — purging old Qi pathways damages the meridian network regardless of outcome.
+
+---
+
+### 3.5 Comprehension Mechanics
+
+Learning a technique requires: access to it (master's instruction, written manual, or witnessed in combat) + a Comprehension Roll + Downtime.
+
+**1 Downtime Unit = 1 in-game week.**
+
+**Roll:** 1d20 + INT modifier vs. DC
+
+Techniques are **hard-gated by Realm** — a character cannot attempt to learn a technique from a Realm they have not yet reached.
+
+| Technique Realm | Realm Name | DC | Downtime Units |
+| :-------------: | :--------- | :-: | :------------: |
+| 1 | Body Tempering | 12 | 1 |
+| 2 | Qi Condensation | 15 | 2 |
+| 3 | Foundation Establishment | 17 | 3 |
+| 4 | Core Formation | 19 | 4 |
+| 5 | Nascent Soul | 21 | 6 |
+| 6 | Soul Transformation | 23 | 8 |
+| 7 | Void Tribulation | 25 | 10 |
+| 8 | Immortal Ascension | 27 | 13 |
+
+**DC Modifiers:**
+
+| Condition | DC Modifier |
+| :-------- | :---------: |
+| Learning from a live Master | −3 |
+| Written manual available | −1 |
+| Spirit Root element matches technique element | −2 |
+| Knows a related technique (same school) | −1 |
+| Current Strain is Overloaded or higher | +2 |
+
+**No limit** on total techniques learned — only time and Realm gate progression.
+
+**Failure:** Time is spent. Reattempt on the next Downtime Unit.
+
+**Critical Failure (nat 1):** Internalized flaw — next attempt at this specific technique costs double Downtime Units.
+
+---
+
 ## 4. SPIRIT ROOTS
 
 ### 4.1 Trade-Off Spectrum
 
-Breakthrough difficulty scales **inversely** with Spirit Root purity. Pure (Tier 1) roots grant the fastest early progression and highest power ceiling, but face the harshest bottlenecks. Mortal (Tier 5) roots progress slowly but advance with minimal friction.
+Breakthrough difficulty scales **inversely** with Spirit Root purity. Pure (Heavenly) roots grant the fastest early progression and highest power ceiling, but face the harshest bottlenecks. Mortal (5-Element) roots progress slowly but advance with minimal friction.
 
 ```
-[ TIER 1: PURE/HEAVENLY ]  <----------------------------->  [ TIER 5: MORTAL/5-ELEMENT ]
-  Max Peak Power (Tier VI Spells)                             Low Peak Power (Tier II Spells)
-  Double Cultivation Speed (+100% EXP)                        Flat Cultivation Speed (+0% EXP)
-  Extreme Breakthrough Environment Required                    No Breakthrough Environment Required
-  HARSH BOTTLENECK (+30% Difficulty)                          SMOOTH PROGRESSION (-30% Difficulty)
+[ PURE / HEAVENLY ]  <--------------------------------->  [ MORTAL / 5-ELEMENT ]
+  Max Peak Power (Advanced Elemental Techniques)             Low Peak Power (Basic–Mid Techniques)
+  Double Cultivation Speed (+100% EXP)                       Flat Cultivation Speed (+0% EXP)
+  Extreme Breakthrough Environment Required                   No Breakthrough Environment Required
+  HARSH BOTTLENECK (+30% Difficulty)                         SMOOTH PROGRESSION (-30% Difficulty)
 ```
 
-### 4.2 Tier Specifications
+### 4.2 Spirit Root Grades
 
-| Tier | Root Type | Specialized Elements | Max Spell Tier | Environmental EXP Bonus | Required Breakthrough Biome | Breakthrough Difficulty Modifier |
-| :--: | :-------- | :------------------: | :------------: | :---------------------: | :-------------------------- | :------------------------------: |
-| **1** | Pure (Heavenly) | 1 | **Tier VI** | +100% | Pure Biome *(Hostile)* | **+30% Harder** |
-| **2** | Dual | 2 | **Tier V** | +75% | Dual Biome *(Rare)* | **+15% Harder** |
-| **3** | True (3-Element) | 3 | **Tier IV** | +50% | Triple Biome *(Uncommon)* | **±0% (Standard)** |
-| **4** | Spurious | 4 | **Tier III** | +25% | Quad Biome *(Common)* | **-15% Easier** |
-| **5** | Mortal (5-Element) | 5 | **Tier II** | +0% | Base Reality *(Anywhere)* | **-30% Easier** |
+**Technique access:** Advanced techniques tied to a specific element require the cultivator's Spirit Root to include that element. Realm level is the only other gate (§3.5).
+
+Spirit Root therefore determines which elemental schools of advanced techniques are accessible. A Mortal root (5 elements) can access all elemental schools; a Pure root (1 element) reaches the highest power in one school but cannot access other elements at advanced levels.
+
+| Grade | Root Type | Specialized Elements | Elemental Schools Accessible | Environmental EXP Bonus | Required Breakthrough Biome | Breakthrough Difficulty Modifier |
+| :--: | :-------- | :------------------: | :----------------------------: | :---------------------: | :-------------------------- | :------------------------------: |
+| **1** | Pure (Heavenly) | 1 | **1 school** *(element-locked)* | +100% | Pure Biome *(Hostile)* | **+30% Harder** |
+| **2** | Dual | 2 | **2 schools** | +75% | Dual Biome *(Rare)* | **+15% Harder** |
+| **3** | True (3-Element) | 3 | **3 schools** | +50% | Triple Biome *(Uncommon)* | **±0% (Standard)** |
+| **4** | Spurious | 4 | **4 schools** | +25% | Quad Biome *(Common)* | **-15% Easier** |
+| **5** | Mortal (5-Element) | 5 | **All schools** *(5 elements)* | +0% | Base Reality *(Anywhere)* | **-30% Easier** |
 
 ### 4.3 Breakthrough Difficulty Modifiers
 
@@ -422,7 +677,7 @@ Breakthrough difficulty scales **inversely** with Spirit Root purity. Pure (Tier
 
 Base success chance example: **50%**
 
-| Tier | Root Type | Modifier | Effective Success Chance |
+| Grade | Root Type | Modifier | Effective Success Chance |
 | :--: | :-------- | :------: | :----------------------: |
 | 1 | Pure | −30% | 20% |
 | 2 | Dual | −15% | 35% |
@@ -434,7 +689,7 @@ Base success chance example: **50%**
 
 Base Breakthrough DC example: **DC 15**
 
-| Tier | Root Type | DC Modifier | Effective DC |
+| Grade | Root Type | DC Modifier | Effective DC |
 | :--: | :-------- | :---------: | :----------: |
 | 1 | Pure | +6 | DC 21 |
 | 2 | Dual | +3 | DC 18 |
@@ -444,6 +699,323 @@ Base Breakthrough DC example: **DC 15**
 
 ### 4.4 System Synergy Notes
 
-**Tier 5 (Mortal) Path:** Slow cultivation speed and capped at Tier II spells, but highly reliable. Can level in safe environments with favorable success rates — the survivor's path.
+**Mortal (5-Element) Path:** Slow cultivation speed and no SE bonus, but highly reliable progression and access to all 5 elemental schools at advanced levels. Widest technique variety in the game. Breakthrough walls are low — the survivor's path.
 
-**Tier 1 (Pure) Path:** Rapid early progression (+100% EXP), but faces severe breakthrough walls. Requires hostile biomes, high-quality pills, and accepts high Qi Deviation or death risk if underprepared.
+**Pure (Heavenly) Path:** Rapid early progression (+100% EXP), but technique access is exclusively within their one element. The most powerful specialist build. Faces severe breakthrough walls, requires hostile biomes and high-quality resources.
+
+---
+
+## 5. TECHNIQUE DESIGN MATRIX
+
+This section is a suggestion tool for GMs designing technique cards. Nothing here is mandatory — techniques can be built however fits the story, the character, or the moment. These tables offer a calibration reference when you want a sanity check on whether a technique feels appropriate for a cultivator's realm and rank.
+
+**Access:** A character cannot learn a technique above their current Realm (§3.5). Techniques tied to a specific element require the cultivator's Spirit Root to include that element. That is the only other restriction.
+
+---
+
+### 5.1 Design Variables
+
+A technique card is typically defined by some combination of the following. Not every card needs all of them.
+
+| Variable | What It Shapes |
+| :-------- | :------------- |
+| **Realm & Rank** | Power band. An Early technique and a Peak technique from the same realm can differ significantly in output and effect scope. |
+| **AP Cost** (1, 2, or 3) | Action commitment. Loosely correlates with power — but a well-designed 1 AP technique can outperform a 3 AP one if the effect warrants it. |
+| **Qi Cost** | Resource drain per use. Calibrated against the cultivator's expected pool at their current rank. |
+| **Damage Formula** | The output written on the card — see §5.4 for format options. |
+| **Effect Type** | Control, buff, debuff, AoE, movement, utility, or none. |
+| **Effect Duration** | How long secondary effects last. |
+| **Strain Cost** | Left at 0 for most techniques. Set a value only for forbidden or self-destructive arts — see §5.6. |
+
+---
+
+### 5.2 AP Cost as a Rough Power Signal
+
+AP cost measures **action commitment**, not raw power.
+
+| AP Cost | Commitment | Rough Design Tendency |
+| :-----: | :--------- | :-------------------- |
+| **1 AP** | Low | Fast, efficient, repeatable. Good for bread-and-butter strikes or quick utility. |
+| **2 AP** | Moderate | The typical primary technique — solid output plus a meaningful secondary effect. |
+| **3 AP** | Full turn | Big finishers or battlefield-altering effects. Consumes the entire turn. |
+
+---
+
+### 5.3 Qi Cost Reference
+
+The table shows suggested Qi cost ranges keyed to the cultivator's approximate Qi pool at each realm and rank. Calculated from a SPI-focused build (SPI growing from ~9 at Realm 1 Early to ~20+ at Realm 8 Peak). These are a starting point — a technique can cost more or less depending on its role and design intent.
+
+The ranges also align with the **Qi Overdraft Strain Brackets** (§2.6), so you can see at a glance how painful it is to cast a technique on an empty pool.
+
+Mid and Late rank values fall naturally between the Early and Peak values shown.
+
+| Realm | Rank | Stage | ~Qi Pool | 1 AP | 2 AP | 3 AP |
+| :---: | :--- | :---: | :------: | :--: | :--: | :--: |
+| 1 | Early | 1.00 | ~19 | 2 | 4–6 | 7–10 |
+| 1 | Peak | 1.75 | ~27 | 2–4 | 5–8 | 9–14 |
+| 2 | Early | 2.00 | ~32 | 3–5 | 6–10 | 11–16 |
+| 2 | Peak | 2.75 | ~43 | 4–6 | 9–13 | 15–21 |
+| 3 | Early | 3.00 | ~46 | 5–7 | 9–14 | 16–23 |
+| 3 | Peak | 3.75 | ~58 | 6–9 | 12–17 | 20–29 |
+| 4 | Early | 4.00 | ~66 | 7–10 | 13–20 | 23–33 |
+| 4 | Peak | 4.75 | ~81 | 8–12 | 16–24 | 28–40 |
+| 5 | Early | 5.00 | ~85 | 8–13 | 17–25 | 30–42 |
+| 5 | Peak | 5.75 | ~102 | 10–15 | 20–30 | 36–51 |
+| 6 | Early | 6.00 | ~112 | 11–17 | 22–34 | 39–56 |
+| 6 | Peak | 6.75 | ~131 | 13–20 | 26–39 | 46–65 |
+| 7 | Early | 7.00 | ~136 | 14–20 | 27–41 | 48–68 |
+| 7 | Peak | 7.75 | ~157 | 16–24 | 31–47 | 55–78 |
+| 8 | Early | 8.00 | ~170 | 17–25 | 34–51 | 60–85 |
+| 8 | Peak | 8.75 | ~193 | 19–29 | 39–58 | 68–97 |
+
+*~Qi Pool = floor(SPI × Stage + 10), SPI-focused build. Adjust for builds investing less in SPI.*
+
+---
+
+### 5.4 Damage Output Reference
+
+Damage is measured against the **basic attack baseline** — the free output with no technique, no Qi, no Strain (§2.5):
+
+| Realm | Rank | Approx. Attribute Modifier | Basic Attack Damage |
+| :---: | :--- | :------------------------: | :-----------------: |
+| 1 | Early | +3 | 3 |
+| 1 | Peak | +3–4 | 3–4 |
+| 2 | Early–Peak | +3–4 | 3–4 |
+| 3 | Early–Peak | +4 | 4 |
+| 4 | Early–Peak | +4–5 | 4–5 |
+| 5 | Early–Peak | +5–6 | 5–6 |
+| 6 | Early–Peak | +5–6 | 5–6 |
+| 7 | Early–Peak | +6 | 6 |
+| 8 | Early–Peak | +6–7 | 6–7 |
+
+The table below offers a suggested average output range per realm, rank, and AP cost as a rough calibration target.
+
+#### Suggested Damage Ranges (single target, average output)
+
+| Realm | Rank | 1 AP | 2 AP | 3 AP |
+| :---: | :--- | :--: | :--: | :--: |
+| 1 | Early | 5–8 | 10–15 | 17–25 |
+| 1 | Peak | 7–11 | 14–20 | 24–35 |
+| 2 | Early | 9–13 | 17–25 | 28–42 |
+| 2 | Peak | 11–16 | 21–30 | 35–52 |
+| 3 | Early | 12–18 | 24–35 | 40–58 |
+| 3 | Peak | 15–22 | 29–43 | 50–72 |
+| 4 | Early | 16–24 | 31–46 | 52–75 |
+| 4 | Peak | 20–30 | 38–56 | 64–92 |
+| 5 | Early | 21–31 | 40–58 | 67–96 |
+| 5 | Peak | 25–37 | 48–70 | 80–115 |
+| 6 | Early | 27–40 | 52–76 | 87–125 |
+| 6 | Peak | 31–46 | 60–87 | 100–144 |
+| 7 | Early | 30–44 | 58–84 | 96–138 |
+| 7 | Peak | 36–52 | 70–102 | 116–168 |
+| 8 | Early | 37–55 | 72–105 | 120–173 |
+| 8 | Peak | 44–64 | 85–123 | 142–205 |
+
+Going outside these ranges is fine. A technique with a powerful effect but modest damage, or a pure damage technique with no secondary effect, are both valid designs.
+
+---
+
+#### Formula Styles
+
+Four common ways to express a damage formula. Pick whatever fits the technique's tone — all can hit the same output range.
+
+**N × Attribute Modifier** — `N × [STR/SPI mod]`
+Scales automatically as the cultivator advances sub-ranks. Deterministic, no variance. Good for disciplined or precise techniques.
+
+| Realm | 1 AP | 2 AP | 3 AP |
+| :---: | :--: | :--: | :--: |
+| 1–2 | 2–3× | 4–5× | 6–9× |
+| 3–4 | 3–4× | 6–8× | 10–13× |
+| 5–6 | 4–5× | 8–10× | 13–17× |
+| 7–8 | 5–7× | 10–14× | 17–23× |
+
+*Because this formula uses the cultivator's live modifier, output rises naturally as they advance from Early to Peak without needing a new card.*
+
+---
+
+**Pure Dice Pool** — `Xd6 / Xd8 / Xd10`
+Independent of attributes. High variance — good for explosive or unpredictable techniques. Practical at lower realms; at Realm 6+ the dice count becomes large, so hybrid is usually more manageable.
+
+| Realm | 1 AP | 2 AP | 3 AP |
+| :---: | :--: | :--: | :--: |
+| 1 | 1d8 | 3d6 | 5d6 |
+| 2 | 2d6 | 4d6 | 7d6 |
+| 3 | 3d6 | 6d6 | 10d6 |
+| 4 | 3d8 | 7d8 | 12d8 |
+| 5 | 5d8 | 9d8 | 16d8 |
+| 6 | 6d8 | 12d8 | 20d8 |
+| 7 | 7d10 | 14d10 | 24d10 |
+| 8 | 8d10 | 17d10 | 29d10 |
+
+*For sub-rank granularity, assign separate values per rank (e.g., Early = 3d8, Peak = 5d8 for a Realm 4 technique) or use one value per realm as a flat rank signature.*
+
+---
+
+**Flat Number** — `Deal X damage`
+Fully predictable. Works well when the effect matters more than the damage, or for NPC and spirit abilities without attribute scores. Setting the value near the midpoint of the suggested range is a reasonable default.
+
+| Realm | 1 AP | 2 AP | 3 AP |
+| :---: | :--: | :--: | :--: |
+| 1 | 7 | 13 | 21 |
+| 2 | 11 | 23 | 35 |
+| 3 | 15 | 29 | 45 |
+| 4 | 20 | 37 | 58 |
+| 5 | 26 | 46 | 71 |
+| 6 | 30 | 55 | 83 |
+| 7 | 37 | 65 | 102 |
+| 8 | 44 | 78 | 120 |
+
+*These sit near the middle of each realm's range. For sub-rank precision, use the lower value for Early rank and scale up ~20–25% toward Peak.*
+
+---
+
+**Hybrid** — `N × [attribute mod] + Xd6`
+Balances stat-scaling with variance. Generally the most flexible format — the technique grows with the character while dice keep outcomes interesting. Swap d6 for d8 or d10 at higher realms.
+
+| Realm | 1 AP | 2 AP | 3 AP |
+| :---: | :--- | :--- | :--- |
+| 1–2 | 2× mod + 1d6 | 3× mod + 2d6 | 5× mod + 3d6 |
+| 3–4 | 2× mod + 2d6 | 4× mod + 2d8 | 7× mod + 3d8 |
+| 5–6 | 3× mod + 2d8 | 6× mod + 3d8 | 10× mod + 4d8 |
+| 7–8 | 4× mod + 2d10 | 8× mod + 3d10 | 14× mod + 4d10 |
+
+---
+
+**AoE techniques** hitting multiple targets simultaneously can use a reduced formula per target — roughly 50–65% of the equivalent single-target output is a reasonable starting point, though this is entirely a GM call.
+
+---
+
+### 5.5 Utility Techniques
+
+Non-damage techniques (movement, buffs, debuffs, control) drop the damage formula entirely. Their Qi cost can still follow §5.3 as a loose guide.
+
+| AP Cost | Suggested Utility Scale |
+| :-----: | :---------------------- |
+| **1 AP** | One modest benefit: a short reposition (2–4 tiles), a minor buff (+1–2 to one roll), or a brief debuff lasting 1 turn. |
+| **2 AP** | A meaningful tactical shift: significant movement or teleport, a buff covering 2–3 rolls, or moderate control lasting 2 turns. |
+| **3 AP** | Major impact: long repositioning, a party-wide buff, strong control (Stun, Root), or an environmental effect. |
+
+Duration is flexible — a weak effect at long duration and a strong effect at short duration are both valid.
+
+*"Until save" effects can use DC 10 + caster's relevant modifier as a default, adjusted for how powerful the effect is.*
+
+---
+
+### 5.6 Effect Scope by Realm and Rank
+
+A loose guide to what secondary effects feel natural at each realm and rank. Any realm can break from this if the story or character justifies it.
+
+| Realm | Realm Name | Early–Mid | Late–Peak |
+| :---: | :--------- | :-------- | :-------- |
+| 1 | Body Tempering | Minor debuff (−1, 1 turn). Modest push or pull. | Control 1 turn. Small AoE (2–3 targets). |
+| 2 | Qi Condensation | Persistent minor damage (1d4/turn, 1 turn). | Bind 1–2 turns. Small AoE with a debuff. |
+| 3 | Foundation Establishment | Moderate control (Stun 1 turn). AoE up to 3 targets. | Bind 2–3 turns. Small elemental zone (2 tiles). |
+| 4 | Core Formation | Root 2 turns. AoE up to 4 targets. Silence 1 turn. | AoE up to 6 targets. Larger zones. Stronger debuffs. |
+| 5 | Nascent Soul | Wide AoE. Minor elemental projections. | Large AoE. Sustained manifestation (2–3 turns). |
+| 6 | Soul Transformation | Battlefield-scale effects. Persistent conditions (3–4 turns). | Partial domain sealing. Multi-condition application. |
+| 7 | Void Tribulation | Domain-scale. Terrain alteration. | Area suppression vs. lower-realm opponents. |
+| 8 | Immortal Ascension | Full domain-scale. Realm suppression. | Reality-bending effects. |
+
+---
+
+### 5.7 Strain Costs for Forbidden Techniques
+
+Most techniques have no Strain cost on the card — Strain only enters through Qi overdraft in normal use (§2.6). A Strain cost printed on the card marks it as **forbidden, cursed, or self-destructive**: the Strain is paid on activation regardless of Qi level.
+
+Use sparingly. It should feel like a meaningful choice, not routine.
+
+| Technique Feel | Suggested Strain Cost | Intent |
+| :------------- | :-------------------: | :----- |
+| Slightly cursed / augmented | +1 | A small price for a slight edge. Noticeable but manageable. |
+| Forbidden art | +2–3 | Regular use will push a character toward Strained within a session. |
+| Self-destructive | +4–5 | Desperation move. Can push into Overloaded in one use from a low-Strain state. |
+| Soul-burning | +6+ | Last resort. Near-instant death risk for characters already carrying Strain. |
+
+Compare the Strain cost to the character's Max Strain at their realm (§3.4) — the same +3 cost is significant at Realm 1 (Max Strain 12) but barely noticeable at Realm 8 (Max Strain 20). Calibrate to the intended danger, not to an absolute number.
+
+---
+
+### 5.8 Worked Examples
+
+Five technique cards, one per type. Each includes an alignment note showing how it sits against the matrix suggestions.
+
+---
+
+**Splitting Heaven Slash**
+*Body Tempering — Late Rank — Martial / Weapon — STR-scaling*
+
+| Field | Value |
+| :---- | :---- |
+| **AP Cost** | 2 |
+| **Qi Cost** | 6 |
+| **Strain Cost** | 0 |
+| **Damage** | 4 × STR mod *(physical)* |
+| **Effect** | Cleave — hits up to 2 adjacent targets with a single swing. Both take full damage. |
+| **Notes** | Movement is not allowed on the same turn — the arc requires planted footing. |
+
+*Alignment: Realm 1 Late, 2 AP. Pool ~23; suggested 2 AP range 4–7, Qi 6 in range. With STR mod +3: 4×3 = 12 — within the Realm 1 Early–Peak 2 AP suggestion (10–20). Two-target cleave with no secondary debuff is appropriate at Late rank.*
+
+---
+
+**Crimson Lotus Barrage**
+*Core Formation — Peak Rank — Spiritual / Fire — SPI-scaling*
+*(Requires Fire element in Spirit Root)*
+
+| Field | Value |
+| :---- | :---- |
+| **AP Cost** | 3 |
+| **Qi Cost** | 36 |
+| **Strain Cost** | 0 |
+| **Damage** | 8 × SPI mod + 3d8 *(spiritual, fire)* |
+| **Effect** | Target ignites — takes **2d6 fire damage** at the start of their next 2 turns. |
+| **Notes** | Ignite applies even if the target has spiritual resistance — fire is elemental, not Qi-based. |
+
+*Alignment: Realm 4 Peak, 3 AP. Pool ~81; suggested range 28–40, Qi 36 in range. With SPI mod +5: (8×5)+3d8 = 40+~14 avg = ~54. The 2-turn burn adds ~14 combined, pushing total output to ~68 — within the Realm 4 Peak 3 AP suggestion (64–92). Hybrid format for stat-scaling with variance.*
+
+---
+
+**Phantom Shatter Step**
+*Foundation Establishment — Mid Rank — Movement — AGI-scaling*
+
+| Field | Value |
+| :---- | :---- |
+| **AP Cost** | 1 |
+| **Qi Cost** | 7 |
+| **Strain Cost** | 0 |
+| **Damage** | None |
+| **Effect** | Teleport up to 4 tiles. Gain **+AGI mod** to your next Evasion roll this turn. The teleport does not provoke opportunity attacks. |
+| **Notes** | Cannot teleport through solid barriers. The evasion bonus expires at the end of this turn. |
+
+*Alignment: Realm 3 Mid, 1 AP. Pool ~52; suggested 1 AP range 5–8, Qi 7 in range. No damage — pure movement utility. A 4-tile teleport with a conditional evasion bonus is a reasonable 1 AP trade at Foundation Establishment Mid rank.*
+
+---
+
+**Heaven-Splitting Shockwave**
+*Nascent Soul — Late Rank — Spiritual / Force — SPI-scaling*
+
+| Field | Value |
+| :---- | :---- |
+| **AP Cost** | 3 |
+| **Qi Cost** | 44 |
+| **Strain Cost** | 0 |
+| **Damage** | 10d8 spiritual damage to all targets in a **4-tile cone** (up to 6 targets) |
+| **Effect** | Each target hit is pushed back **2 tiles**. Targets that cannot be pushed take an additional **1d6 impact damage**. |
+| **Notes** | Roll a separate SPI attack vs. each target's Evasion. Cone direction is fixed on activation. |
+
+*Alignment: Realm 5 Late, 3 AP. Pool ~95; suggested range 30–47, Qi 44 in range. 10d8 avg = 45 per target. The Realm 5 Late 3 AP single-target suggestion is ~70–100; applying a 50–65% AoE reduction gives ~35–65 per target — 45 sits in that band. Pure dice pool chosen for clean per-target application.*
+
+---
+
+**Soul-Severing Curse**
+*Soul Transformation — Early Rank — Spiritual / Forbidden — SPI-scaling*
+
+| Field | Value |
+| :---- | :---- |
+| **AP Cost** | 2 |
+| **Qi Cost** | 26 |
+| **Strain Cost** | **+3 (paid on activation, hit or miss)** |
+| **Damage** | 6 × SPI mod + 2d10 *(spiritual)* |
+| **Effect** | On hit: target **loses access to one chosen Technique** until they complete a Full Rest. The same technique cannot be suppressed twice before the first application expires. |
+| **Notes** | Forbidden. Cannot be used while at the Critical Strain stage. Strain cost is paid whether or not the attack lands. |
+
+*Alignment: Realm 6 Early, 2 AP. Pool ~112; suggested range 22–34, Qi 26 in range. With SPI mod +6: (6×6)+2d10 = 36+~11 avg = ~47 — slightly below the Realm 6 Early 2 AP suggestion (~40–65). Intentionally offset by the +3 Strain cost and technique-suppression effect. At Realm 6 (Max Strain 17), +3 from a clear state puts the character at 3 Strain — no penalty yet. From an already-Strained state, it pushes toward Overloaded. Calibrated as a high-risk play.*

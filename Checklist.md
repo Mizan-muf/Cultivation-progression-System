@@ -1,17 +1,18 @@
 - [x]   ~~Define the core resolution mechanic (e.g., d20, d100, dice pool) and determine how attributes modify rolls.~~ *(1d20 + modifier; modifier = floor(score / 3))*  
-- [ ]   Calculate precise EXP thresholds required for advancing Realms and Ranks.  
-- [ ]   Define the specific mechanical bonuses applied upon cultivation breakthroughs.  
+- [x]   ~~Calculate precise EXP thresholds required for advancing Realms and Ranks.~~ *(SE resets per Major Realm; thresholds defined for all 8 realms; award tables provided)*
+- [x]   ~~Define the specific mechanical bonuses applied upon cultivation breakthroughs.~~ *(+1 attr per Sub-Realm; +3 attr, equipment unlock, Strain +1, technique realm unlock, realm skill unlock per Major Realm)*  
 - [x]   ~~Establish hard numerical modifiers and mechanics for Spirit Roots and Physiques.~~  
 - [x]   ~~Create mathematical formulas converting CON to maximum HP and SPI to maximum Qi.~~ *(HP = (CON × Stage) + 10; QI = (SPI × Stage) + 10; Stage = Realm + Sub-Realm offset)*  
-- [ ]   Establish rules and rates for HP and Qi recovery (e.g., resting, meditation, pills).  
+- [x]   ~~Establish rules and rates for HP and Qi recovery (e.g., resting, meditation, pills).~~ *(Short Rest 25%; Extended Meditation full restore + 1 Strain level cleared; Full Rest clears all; passive Qi regen = SPI mod per turn)*  
 - [x]   ~~Define interim Strain penalty thresholds prior to maximum capacity/death.~~ *(Strained 26–50%, Overloaded 51–75%, Critical 76–99%, Death 100%; roll penalties + HP/QI cap reductions per stage)*
 - [x]   ~~Specify exact actions that generate Strain and the methods required to clear it.~~ *(Triggers: Qi overdraft, forbidden techniques, Tribulation failure, HP ≤10% capped at Strained; Clearing: full rest, meditation, pills, Sect healer)*  
 - [x]   ~~Define combat turn structure and establish action economy limits.~~ *(3 AP/turn; Basic 1 AP, Technique 2 AP, Ultimate 3 AP, Move 1 AP; initiative by fixed AGI, ties by 1d20)*
 - [x]   ~~Create damage calculation formulas scaling from STR (Martial) and SPI (Spiritual).~~ *(Basic attack = STR/SPI modifier; techniques define their own damage formula per card)*  
 - [x]   ~~Establish defense mechanics for evasion (AGI), physical mitigation (CON), and Qi barriers (SPI).~~ *(Opposed roll for evasion; Physical DR = CON mod + Equipment PD + Body Tempering; Spiritual DR = SPI mod + Equipment SD + Spiritual Armour)*  
-- [ ]   Build a balancing matrix correlating Qi/Strain costs with damage output and duration for techniques.  
-- [ ]   Establish comprehension mechanics and time costs for learning new techniques based on INT.
-- [ ]   Define rules, downtime, and penalties for switching Primary Cultivation Techniques.  
+- [x]   ~~Build a balancing matrix correlating Qi/Strain costs with damage output and duration for techniques.~~ *(§5: Technique Design Matrix — Qi cost reference by realm/rank, damage anchor tables, 4 formula styles, effect scope by realm/rank, Strain cost guide for forbidden arts, 5 worked examples)*
+- [x]   ~~Recalibrate Strain triggers and recovery values to the 0–20 absolute point scale.~~ *(§2.6 rework: Qi overdraft bracket table, Tribulation/Grievous Injury per-realm values, Meditation recovery unified to "1 Strain stage")*  
+- [x]   ~~Establish comprehension mechanics and time costs for learning new techniques based on INT.~~ *(§3.5: 1d20 + INT vs DC 12–27 by realm; downtime 1–13 units; hard realm gate; DC modifiers for master/manual/element match)*
+- [x]   ~~Define rules, downtime, and penalties for switching Primary Cultivation Techniques.~~ *(§3.6: 1d20 + SPI vs DC 12+Realm; 1 Downtime Unit; Strain cost on all outcomes; blocked if Overloaded)*
 - [x]   ~~Establish crafting resolution rules for professions utilizing INT, STR, AGI, and CRM.~~  
 - [ ]   Define raw material requirements and ingame time costs for crafting.  
 - [ ]   Establish specific consequences for crafting failures (e.g., wasted materials, physical damage, Strain).  
