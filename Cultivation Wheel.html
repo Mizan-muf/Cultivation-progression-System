@@ -1,0 +1,485 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cultivation Traits Spinner</title>
+    <style>
+        body {
+            font-family: monospace;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .wheel-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            width: 540px;
+        }
+        .canvas-container {
+            position: relative;
+            width: 500px;
+            height: 500px;
+        }
+        canvas {
+            border-radius: 50%;
+            border: 2px solid #555;
+        }
+        .pointer {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #ff4444;
+            z-index: 10;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-family: monospace;
+            background: #333;
+            color: #fff;
+            border: 1px solid #555;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+        }
+        button:hover {
+            background: #444;
+        }
+        button:disabled {
+            background: #222;
+            color: #555;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            background: #000;
+            border: 1px solid #444;
+            width: 100%;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+        .result-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #00ffcc;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        .result-desc {
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.4;
+            text-align: justify;
+        }
+        .tier-label {
+            font-size: 12px;
+            color: #ffaa00;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        h2 {
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            text-align: center;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Spirit Root Wheel -->
+        <div class="wheel-wrapper">
+            <h2>SPIRIT ROOT</h2>
+            <div class="canvas-container">
+                <div class="pointer"></div>
+                <canvas id="rootCanvas" width="500" height="500"></canvas>
+            </div>
+            <button id="spinRootBtn">Spin Spirit Root</button>
+            <div class="result" id="rootResult">
+                <div class="tier-label">-</div>
+                <div class="result-name">WAITING FOR INPUT</div>
+                <div class="result-desc">-</div>
+            </div>
+        </div>
+
+        <!-- Physique/Bloodline Wheel -->
+        <div class="wheel-wrapper">
+            <h2>PHYSIQUE / BLOODLINE</h2>
+            <div class="canvas-container">
+                <div class="pointer"></div>
+                <canvas id="physiqueCanvas" width="500" height="500"></canvas>
+            </div>
+            <button id="spinPhysiqueBtn">Spin Physique/Bloodline</button>
+            <div class="result" id="physiqueResult">
+                <div class="tier-label">-</div>
+                <div class="result-name">WAITING FOR INPUT</div>
+                <div class="result-desc">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub Wheel Container (Hidden initially) -->
+    <div class="container" id="subWheelContainer" style="display: none; margin-top: 0;">
+        <div class="wheel-wrapper">
+            <h2>SPECIFIC ROOT COMBINATION</h2>
+            <div class="canvas-container">
+                <div class="pointer"></div>
+                <canvas id="subCanvas" width="500" height="500"></canvas>
+            </div>
+            <button id="spinSubBtn" style="display: none;">Spin Combination</button>
+            <div class="result" id="subResult">
+                <div class="tier-label">-</div>
+                <div class="result-name">SPINNING...</div>
+                <div class="result-desc">-</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const rootTiers = {
+            MORTAL: { weight: 120, color: '#3a3a3a', label: 'Tier 7: Mortal' },
+            TRI: { weight: 80, color: '#454b4d', label: 'Tier 6: Tri-Element' },
+            DUAL: { weight: 40, color: '#4d5c41', label: 'Tier 5: Dual' },
+            PURE: { weight: 15, color: '#41525c', label: 'Tier 4: Pure' },
+            MUTATED: { weight: 5, color: '#5c415b', label: 'Tier 3: Mutated' },
+            HEAVENLY: { weight: 2, color: '#7a6835', label: 'Tier 2: Heavenly' },
+            APEX: { weight: 1, color: '#731f1f', label: 'Tier 1: Apex / Mythic' }
+        };
+
+        const quadCombos = [
+            { name: "Fire-Water-Wood-Metal", desc: "Lacks Earth. A slightly unbalanced four-element root.", tier: rootTiers.MORTAL },
+            { name: "Fire-Water-Wood-Earth", desc: "Lacks Metal. A slightly unbalanced four-element root.", tier: rootTiers.MORTAL },
+            { name: "Fire-Water-Metal-Earth", desc: "Lacks Wood. A slightly unbalanced four-element root.", tier: rootTiers.MORTAL },
+            { name: "Fire-Wood-Metal-Earth", desc: "Lacks Water. A slightly unbalanced four-element root.", tier: rootTiers.MORTAL },
+            { name: "Water-Wood-Metal-Earth", desc: "Lacks Fire. A slightly unbalanced four-element root.", tier: rootTiers.MORTAL }
+        ];
+
+        const triCombos = [
+            { name: "Fire-Water-Wood", desc: "Average absorption; minor elemental conflict.", tier: rootTiers.TRI },
+            { name: "Fire-Water-Metal", desc: "Average absorption; highly volatile.", tier: rootTiers.TRI },
+            { name: "Fire-Water-Earth", desc: "Average absorption; thermal and fluid mix.", tier: rootTiers.TRI },
+            { name: "Fire-Wood-Metal", desc: "Average absorption; aggressive cultivation.", tier: rootTiers.TRI },
+            { name: "Fire-Wood-Earth", desc: "Average absorption; natural cycle promotes stable growth.", tier: rootTiers.TRI },
+            { name: "Fire-Metal-Earth", desc: "Average absorption; structural and heat focus.", tier: rootTiers.TRI },
+            { name: "Water-Wood-Metal", desc: "Average absorption; smooth cyclic energy.", tier: rootTiers.TRI },
+            { name: "Water-Wood-Earth", desc: "Average absorption; high vitality focus.", tier: rootTiers.TRI },
+            { name: "Water-Metal-Earth", desc: "Average absorption; defensive cyclic energy.", tier: rootTiers.TRI },
+            { name: "Wood-Metal-Earth", desc: "Average absorption; physically grounding.", tier: rootTiers.TRI }
+        ];
+
+        const dualCombos = [
+            { name: "Fire-Water Dual", desc: "Clashing elements; volatile Qi.", tier: rootTiers.DUAL },
+            { name: "Fire-Wood Dual", desc: "Wood fuels Fire; strong offensive Qi.", tier: rootTiers.DUAL },
+            { name: "Fire-Metal Dual", desc: "Fire refines Metal; good for forging.", tier: rootTiers.DUAL },
+            { name: "Fire-Earth Dual", desc: "High affinity for geothermal and magmatic Qi.", tier: rootTiers.DUAL },
+            { name: "Water-Wood Dual", desc: "Water nourishes Wood; high healing.", tier: rootTiers.DUAL },
+            { name: "Water-Metal Dual", desc: "High affinity for conductive and fluid Qi.", tier: rootTiers.DUAL },
+            { name: "Water-Earth Dual", desc: "Earth contains Water; stable but stagnant.", tier: rootTiers.DUAL },
+            { name: "Wood-Metal Dual", desc: "Metal cuts Wood; internal conflict.", tier: rootTiers.DUAL },
+            { name: "Wood-Earth Dual", desc: "High affinity for terrestrial and plant-based Qi.", tier: rootTiers.DUAL },
+            { name: "Metal-Earth Dual", desc: "Earth produces Metal; supreme defense.", tier: rootTiers.DUAL }
+        ];
+
+        const spiritRoots = [
+            { name: "Mortal Five-Element", desc: "Balanced but extremely slow absorption of all five primary elements.", tier: rootTiers.MORTAL },
+            { name: "Mortal Four-Element", desc: "Contains 4 elements. Rolling combination...", tier: rootTiers.MORTAL, hasSub: true, subItems: quadCombos },
+            
+            { name: "Tri-Element Root", desc: "Contains 3 elements. Rolling combination...", tier: rootTiers.TRI, hasSub: true, subItems: triCombos },
+            { name: "Dual Root", desc: "Contains 2 elements. Rolling combination...", tier: rootTiers.DUAL, hasSub: true, subItems: dualCombos },
+            
+            { name: "Pure Fire", desc: "Exceptional absorption of ambient heat and yang-aligned Qi.", tier: rootTiers.PURE },
+            { name: "Pure Water", desc: "Exceptional absorption of fluid and yin-aligned Qi.", tier: rootTiers.PURE },
+            { name: "Pure Wood", desc: "Exceptional absorption of life and natural Qi.", tier: rootTiers.PURE },
+            { name: "Pure Metal", desc: "Exceptional absorption of mineral and structural Qi.", tier: rootTiers.PURE },
+            { name: "Pure Earth", desc: "Exceptional absorption of gravitational and tectonic Qi.", tier: rootTiers.PURE },
+            
+            { name: "Mutated Ice", desc: "Derived from Water; grants freezing and thermal reduction properties.", tier: rootTiers.MUTATED },
+            { name: "Mutated Lightning", desc: "Derived from Fire/Metal; grants high-speed plasma manipulation.", tier: rootTiers.MUTATED },
+            { name: "Mutated Wind", desc: "Derived from Wood/Water; grants atmospheric and pressure manipulation.", tier: rootTiers.MUTATED },
+            { name: "Mutated Blood", desc: "Grants manipulation of biological fluids and life-force theft.", tier: rootTiers.MUTATED },
+            { name: "Mutated Poison", desc: "Grants the ability to synthesize and resist lethal toxins.", tier: rootTiers.MUTATED },
+            { name: "Mutated Yin", desc: "Absolute affinity for negative, spectral, and lunar energies.", tier: rootTiers.MUTATED },
+            { name: "Mutated Yang", desc: "Absolute affinity for positive, solar, and vitality energies.", tier: rootTiers.MUTATED },
+            
+            { name: "Heavenly Fire", desc: "Apex fire affinity; immune to standard thermal damage.", tier: rootTiers.HEAVENLY },
+            { name: "Heavenly Water", desc: "Apex water affinity; command over all aquatic forces.", tier: rootTiers.HEAVENLY },
+            { name: "Heavenly Wood", desc: "Apex wood affinity; instant cellular regeneration capabilities.", tier: rootTiers.HEAVENLY },
+            { name: "Heavenly Metal", desc: "Apex metal affinity; unbreakable weapon synthesis.", tier: rootTiers.HEAVENLY },
+            { name: "Heavenly Earth", desc: "Apex earth affinity; manipulation of planetary gravity.", tier: rootTiers.HEAVENLY },
+            
+            { name: "Nine-Heavens Lightning", desc: "Attracts and absorbs heavenly tribulation strikes.", tier: rootTiers.APEX },
+            { name: "Netherworld Ice", desc: "Freezes spiritual energy and physical matter equally.", tier: rootTiers.APEX },
+            { name: "Nine-Yin Water", desc: "Corrosive fluid affinity that damages souls directly.", tier: rootTiers.APEX },
+            { name: "Nine-Yang Fire", desc: "Searing energy that incinerates ethereal and demonic entities.", tier: rootTiers.APEX },
+            { name: "Abyssal Darkness", desc: "Absorbs light, sight, and spiritual sense.", tier: rootTiers.APEX },
+            { name: "Holy Light", desc: "Projects purifying radiance that neutralizes corruption.", tier: rootTiers.APEX },
+            { name: "Star-fall Root", desc: "Draws Qi directly from astral bodies rather than the earth.", tier: rootTiers.APEX },
+            { name: "Void-Space", desc: "Innate comprehension of spatial rifts and teleportation.", tier: rootTiers.APEX },
+            { name: "Temporal-Time", desc: "Innate comprehension of chronomancy and localized time dilation.", tier: rootTiers.APEX },
+            { name: "Chaos Creation", desc: "Ability to synthesize physical matter from raw Spiritual Qi.", tier: rootTiers.APEX },
+            { name: "Primordial Destruction", desc: "Ability to reduce physical matter into raw, volatile energy.", tier: rootTiers.APEX },
+            { name: "Karmic Thread", desc: "Grants perception of cause-and-effect linkages between entities.", tier: rootTiers.APEX },
+            { name: "Reincarnation", desc: "Retains partial skill mastery from past lives upon death.", tier: rootTiers.APEX },
+            { name: "Myriad Illusion", desc: "Projects sensory alterations indistinguishable from reality.", tier: rootTiers.APEX },
+            { name: "Slaughter Dao", desc: "Converts killing intent and fatalities into permanent cultivation experience.", tier: rootTiers.APEX },
+            { name: "Primal Chaos Soul Root", desc: "Merges all elemental affinities into unfiltered base reality energy.", tier: rootTiers.APEX }
+        ];
+
+        const physiqueTiers = {
+            MORTAL: { weight: 200, color: '#3a3a3a', label: 'Tier 6: Mortal' },
+            COMMON: { weight: 50, color: '#4d5c41', label: 'Tier 5: Common Art' },
+            RARE: { weight: 15, color: '#41525c', label: 'Tier 4: Rare Physique' },
+            EPIC: { weight: 5, color: '#5c415b', label: 'Tier 3: Epic Bloodline' },
+            LEGENDARY: { weight: 2, color: '#7a6835', label: 'Tier 2: Legendary Body' },
+            MYTHIC: { weight: 1, color: '#731f1f', label: 'Tier 1: Mythic Bloodline' }
+        };
+
+        const physiques = [
+            { name: "Mortal Body", desc: "Standard human physiology. No passive modifiers.", tier: physiqueTiers.MORTAL },
+            
+            { name: "Iron-Bone", desc: "Increases skeletal density; grants flat physical damage reduction.", tier: physiqueTiers.COMMON },
+            { name: "Copper-Skin", desc: "Hardens the epidermis; repels low-tier mortal weapons.", tier: physiqueTiers.COMMON },
+            { name: "Spirit-Gathering", desc: "Passively draws ambient Qi even while unconscious.", tier: physiqueTiers.COMMON },
+            
+            { name: "Vajra Indestructible", desc: "Grants immunity to standard physical stagger and knockbacks.", tier: physiqueTiers.RARE },
+            { name: "Primordial Sword", desc: "Converts a portion of biological mass into sword intent.", tier: physiqueTiers.RARE },
+            { name: "Five-Elements Harmony", desc: "Automatically balances internal Qi, preventing Qi deviation.", tier: physiqueTiers.RARE },
+            { name: "Phantom Shadow", desc: "Eliminates physical mass during movement; phases through solid matter.", tier: physiqueTiers.RARE },
+            { name: "Myriad Poison", desc: "Converts ingested toxins into maximum health increases.", tier: physiqueTiers.RARE },
+            
+            { name: "True Dragon", desc: "Grants draconic physical scaling, scales, and roar abilities.", tier: physiqueTiers.EPIC },
+            { name: "Heavenly Phoenix", desc: "Grants conditional resurrection upon fatal damage.", tier: physiqueTiers.EPIC },
+            { name: "Golden Crow", desc: "Radiates extreme solar heat passively; grants flight capabilities.", tier: physiqueTiers.EPIC },
+            { name: "Black Tortoise", desc: "Maximizes defensive scaling and drastically increases lifespan.", tier: physiqueTiers.EPIC },
+            { name: "Qilin Bloodline", desc: "Emits an aura of auspicious luck and neutralizes local environmental hazards.", tier: physiqueTiers.EPIC },
+            { name: "Kunpeng Bloodline", desc: "Grants dual mastery of aquatic pressure and aerial velocity.", tier: physiqueTiers.EPIC },
+            { name: "Ancient Ape", desc: "Multiplies physical damage output during enraged states.", tier: physiqueTiers.EPIC },
+            { name: "Nine-Tailed Fox", desc: "Innate mastery of charm and psychic manipulation.", tier: physiqueTiers.EPIC },
+            { name: "Asura Bloodline", desc: "Physical parameters increase inversely to current health.", tier: physiqueTiers.EPIC },
+            { name: "Purgatory Demon", desc: "Ignites blood to multiply attack speed and physical damage.", tier: physiqueTiers.EPIC },
+            
+            { name: "Innate Dao Body", desc: "Nullifies elemental resistance penalties; accelerates spell comprehension.", tier: physiqueTiers.LEGENDARY },
+            { name: "Nine-Yin Calamity", desc: "Accumulates lethal yin energy; causes fatal backlash if not vented.", tier: physiqueTiers.LEGENDARY },
+            { name: "Nine-Yang True", desc: "Accumulates extreme yang energy; requires external yin to prevent combustion.", tier: physiqueTiers.LEGENDARY },
+            { name: "Heavenly Demon", desc: "Thrives on negative karma; absorbs demonic Qi without corruption.", tier: physiqueTiers.LEGENDARY },
+            { name: "Supreme Bone", desc: "Contains a fused innate divine ability that scales with the user.", tier: physiqueTiers.LEGENDARY },
+            { name: "Heavy Pupil", desc: "Dual-pupil structure that slows perceived enemy movement speed.", tier: physiqueTiers.LEGENDARY },
+            { name: "Glacial Jade Bone", desc: "Renders the user immune to thermal tracking and emotional manipulation.", tier: physiqueTiers.LEGENDARY },
+            
+            { name: "Desolate Ancient", desc: "Multiplies base physical strength but requires exponential Qi to level.", tier: physiqueTiers.MYTHIC },
+            { name: "Star-Forged", desc: "Body density scales with exposure to starlight.", tier: physiqueTiers.MYTHIC },
+            { name: "Chaos Bell", desc: "Resonates to reflect a percentage of incoming physical damage.", tier: physiqueTiers.MYTHIC },
+            { name: "Samsara Eye", desc: "Visual perception extends into the spiritual and past planes.", tier: physiqueTiers.MYTHIC },
+            { name: "Celestial Deity", desc: "Emits a suppression aura against lower-tier bloodlines.", tier: physiqueTiers.MYTHIC },
+            { name: "Void Behemoth", desc: "Stomach acts as a spatial pocket; devours matter for energy.", tier: physiqueTiers.MYTHIC },
+            { name: "Star Devourer", desc: "Absorbs kinetic energy to fuel spatial jumps.", tier: physiqueTiers.MYTHIC },
+            { name: "Deep Sea Kraken", desc: "Generates localized high-pressure liquid domains.", tier: physiqueTiers.MYTHIC },
+            { name: "Immortal Phoenix", desc: "Grants absolute immunity to fire and self-immolation healing.", tier: physiqueTiers.MYTHIC },
+            { name: "Heaven-Devouring", desc: "Bypasses standard digestion; directly assimilates artifacts for permanent stats.", tier: physiqueTiers.MYTHIC },
+            { name: "Sun-Moon Dual", desc: "Stats shift dynamically depending on the current time of day.", tier: physiqueTiers.MYTHIC },
+            { name: "Calamity Fiend", desc: "Draws strength from nearby natural disasters and destruction.", tier: physiqueTiers.MYTHIC },
+            { name: "Emperor's Sovereign", desc: "Grants absolute command over lower-tier entities and tamed beasts.", tier: physiqueTiers.MYTHIC }
+        ];
+
+        class Wheel {
+            constructor(canvasId, buttonId, resultId, items, onStopCallback = null) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext('2d');
+                this.button = document.getElementById(buttonId);
+                
+                this.resultContainer = document.getElementById(resultId);
+                this.tierDiv = this.resultContainer.querySelector('.tier-label');
+                this.nameDiv = this.resultContainer.querySelector('.result-name');
+                this.descDiv = this.resultContainer.querySelector('.result-desc');
+                
+                this.onStopCallback = onStopCallback;
+                
+                this.centerX = this.canvas.width / 2;
+                this.centerY = this.canvas.height / 2;
+                this.radius = this.centerX;
+
+                this.currentAngle = 0;
+                this.spinVelocity = 0;
+                this.isSpinning = false;
+                this.animationFrame = null;
+
+                this.setItems(items);
+
+                if (this.button) {
+                    this.button.addEventListener('click', () => this.spin());
+                }
+            }
+
+            setItems(newItems) {
+                this.items = newItems;
+                this.totalWeight = this.items.reduce((sum, item) => sum + item.tier.weight, 0);
+                this.currentAngle = 0;
+                this.drawWheel();
+            }
+
+            drawWheel() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                let startAngle = this.currentAngle;
+
+                for (let i = 0; i < this.items.length; i++) {
+                    const item = this.items[i];
+                    // If all items have equal weight (like sub-wheels), sliceAngle will be equal.
+                    const sliceAngle = (item.tier.weight / this.totalWeight) * 2 * Math.PI;
+                    const endAngle = startAngle + sliceAngle;
+
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.centerX, this.centerY);
+                    this.ctx.arc(this.centerX, this.centerY, this.radius, startAngle, endAngle);
+                    this.ctx.closePath();
+
+                    this.ctx.fillStyle = i % 2 === 0 ? item.tier.color : this.adjustColor(item.tier.color, 15);
+                    this.ctx.fill();
+                    this.ctx.strokeStyle = '#222';
+                    this.ctx.lineWidth = 1;
+                    this.ctx.stroke();
+
+                    if (sliceAngle > 0.05) {
+                        this.ctx.save();
+                        this.ctx.translate(this.centerX, this.centerY);
+                        this.ctx.rotate(startAngle + sliceAngle / 2);
+                        this.ctx.textAlign = "right";
+                        this.ctx.textBaseline = "middle";
+                        this.ctx.fillStyle = "#ffffff";
+                        let fontSize = Math.min(10, Math.max(6, sliceAngle * 50));
+                        this.ctx.font = `${fontSize}px monospace`;
+                        this.ctx.fillText(item.name, this.radius - 15, 0);
+                        this.ctx.restore();
+                    }
+
+                    startAngle += sliceAngle;
+                }
+            }
+
+            adjustColor(hex, amt) {
+                let usePound = false;
+                if (hex[0] == "#") {
+                    hex = hex.slice(1);
+                    usePound = true;
+                }
+                let num = parseInt(hex, 16);
+                let r = (num >> 16) + amt;
+                if (r > 255) r = 255; else if (r < 0) r = 0;
+                let b = ((num >> 8) & 0x00FF) + amt;
+                if (b > 255) b = 255; else if (b < 0) b = 0;
+                let g = (num & 0x0000FF) + amt;
+                if (g > 255) g = 255; else if (g < 0) g = 0;
+                return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16).padStart(6, '0');
+            }
+
+            spin() {
+                if (this.isSpinning) return;
+                
+                this.isSpinning = true;
+                if(this.button) this.button.disabled = true;
+                this.tierDiv.innerText = "-";
+                this.nameDiv.innerText = "CALCULATING...";
+                this.nameDiv.style.color = "#888";
+                this.descDiv.innerText = "-";
+
+                this.spinVelocity = Math.random() * 0.2 + 0.3;
+                this.animate();
+            }
+
+            animate() {
+                this.currentAngle += this.spinVelocity;
+                this.currentAngle %= (2 * Math.PI);
+                
+                this.drawWheel();
+
+                this.spinVelocity *= 0.985;
+
+                if (this.spinVelocity < 0.001) {
+                    this.stop();
+                } else {
+                    this.animationFrame = requestAnimationFrame(() => this.animate());
+                }
+            }
+
+            stop() {
+                this.isSpinning = false;
+                cancelAnimationFrame(this.animationFrame);
+
+                // Pointer sits at the top of the canvas, which is -π/2 in canvas angle space.
+                // We need to un-rotate it by currentAngle to find the slice underneath.
+                const pointerAngle = ((-Math.PI / 2) - this.currentAngle % (2 * Math.PI) + 4 * Math.PI) % (2 * Math.PI);
+
+                let startAngle = 0;
+                let selectedItem = this.items[0];
+
+                for (let i = 0; i < this.items.length; i++) {
+                    const sliceAngle = (this.items[i].tier.weight / this.totalWeight) * 2 * Math.PI;
+                    if (pointerAngle >= startAngle && pointerAngle < startAngle + sliceAngle) {
+                        selectedItem = this.items[i];
+                        break;
+                    }
+                    startAngle += sliceAngle;
+                }
+
+                this.tierDiv.innerText = selectedItem.tier.label;
+                this.nameDiv.innerText = selectedItem.name;
+                this.nameDiv.style.color = '#00ffcc';
+                this.descDiv.innerText = selectedItem.desc;
+
+                if (this.button) this.button.disabled = false;
+
+                if (this.onStopCallback) {
+                    this.onStopCallback(selectedItem);
+                }
+            }
+        }
+
+        let subWheel = null;
+
+        const physiqueWheel = new Wheel('physiqueCanvas', 'spinPhysiqueBtn', 'physiqueResult', physiques);
+
+        const rootWheel = new Wheel('rootCanvas', 'spinRootBtn', 'rootResult', spiritRoots, (item) => {
+            const subContainer = document.getElementById('subWheelContainer');
+            if (item.hasSub && item.subItems) {
+                subContainer.style.display = 'flex';
+                if (!subWheel) {
+                    subWheel = new Wheel('subCanvas', 'spinSubBtn', 'subResult', item.subItems);
+                } else {
+                    subWheel.setItems(item.subItems);
+                }
+                setTimeout(() => subWheel.spin(), 600);
+            } else {
+                subContainer.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

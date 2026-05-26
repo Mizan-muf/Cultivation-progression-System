@@ -1,0 +1,23 @@
+- [x]   ~~Define the core resolution mechanic (e.g., d20, d100, dice pool) and determine how attributes modify rolls.~~ *(1d20 + modifier; modifier = floor(score / 3))*  
+- [ ]   Calculate precise EXP thresholds required for advancing Realms and Ranks.  
+- [ ]   Define the specific mechanical bonuses applied upon cultivation breakthroughs.  
+- [x]   ~~Establish hard numerical modifiers and mechanics for Spirit Roots and Physiques.~~  
+- [x]   ~~Create mathematical formulas converting CON to maximum HP and SPI to maximum Qi.~~ *(HP = (CON × Stage) + 10; QI = (SPI × Stage) + 10; Stage = Realm + Sub-Realm offset)*  
+- [ ]   Establish rules and rates for HP and Qi recovery (e.g., resting, meditation, pills).  
+- [x]   ~~Define interim Strain penalty thresholds prior to maximum capacity/death.~~ *(Strained 26–50%, Overloaded 51–75%, Critical 76–99%, Death 100%; roll penalties + HP/QI cap reductions per stage)*
+- [x]   ~~Specify exact actions that generate Strain and the methods required to clear it.~~ *(Triggers: Qi overdraft, forbidden techniques, Tribulation failure, HP ≤10% capped at Strained; Clearing: full rest, meditation, pills, Sect healer)*  
+- [x]   ~~Define combat turn structure and establish action economy limits.~~ *(3 AP/turn; Basic 1 AP, Technique 2 AP, Ultimate 3 AP, Move 1 AP; initiative by fixed AGI, ties by 1d20)*
+- [x]   ~~Create damage calculation formulas scaling from STR (Martial) and SPI (Spiritual).~~ *(Basic attack = STR/SPI modifier; techniques define their own damage formula per card)*  
+- [x]   ~~Establish defense mechanics for evasion (AGI), physical mitigation (CON), and Qi barriers (SPI).~~ *(Opposed roll for evasion; Physical DR = CON mod + Equipment PD + Body Tempering; Spiritual DR = SPI mod + Equipment SD + Spiritual Armour)*  
+- [ ]   Build a balancing matrix correlating Qi/Strain costs with damage output and duration for techniques.  
+- [ ]   Establish comprehension mechanics and time costs for learning new techniques based on INT.
+- [ ]   Define rules, downtime, and penalties for switching Primary Cultivation Techniques.  
+- [x]   ~~Establish crafting resolution rules for professions utilizing INT, STR, AGI, and CRM.~~  
+- [ ]   Define raw material requirements and ingame time costs for crafting.  
+- [ ]   Establish specific consequences for crafting failures (e.g., wasted materials, physical damage, Strain).  
+- [ ]   Define attunement or binding limits for Magic Treasures.  
+- [ ]   Establish item activation rules specifying Qi consumption, independent charges, and potential Strain generation.
+- [ ]   Create a Web Based character Sheet and party Database and Frontend.
+- [x]   ~~Have a Separate defence system for additional defence for both physical and spiritual atks~~ *(Equipment PD/SD + Body Tempering / Spiritual Armour skill bonuses stack on top of passive CON/SPI mitigation)*
+
+
