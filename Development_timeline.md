@@ -148,6 +148,7 @@
 - Ultimates remain a separate category with cooldowns/use limits defined per card.
 
 ### Checklist Progress
+
 | Status | Item |
 | :----: | :--- |
 | ✅ | Calculate precise EXP thresholds |
@@ -208,3 +209,132 @@
 - Magic Treasure attunement limits and item activation rules.
 - Realm-specific skill unlock list (8 realms, one per Major Realm breakthrough).
 - Web-based character sheet and party database frontend.
+
+---
+
+## Session 4 — 2026-05-27
+
+### Crafting — Material Tiers & Time Costs (§6.1–6.3)
+
+- Created new §6 Crafting section in the main ruleset document.
+- **§6.1 Material Tiers:** 4 universal tiers (Mortal/Spirit/Heaven/Divine) mapped to realm brackets (1–2, 3–4, 5–6, 7–8). Tier properties documented via the 4 Golden Rules (Age, Clarity, Danger, Consciousness).
+- **§6.2 Crafting Time Costs:** DU reference table by tier; DU modifier table for conditions (blueprint, master supervision, first attempt, substitute material, Strain state). Minimum 1 DU.
+- **§6.3 Profession Rank Gate:** Crafters must meet minimum rank to produce items of that tier. Rank mirrors the 8-realm structure; advances separately from cultivation rank.
+- Material quantity per recipe defined per item card — no universal count rule.
+
+### Checklist Progress
+| Status | Item |
+| :----: | :--- |
+| ✅ | Define raw material requirements and in-game time costs for crafting |
+
+### Crafting Failure Consequences (§6.4)
+- Tiered failure system: normal failure (below DC) = ~50% material loss + DU spent; critical failure (nat 1) = full material loss + recipe-defined consequence.
+- No universal physical damage or Strain table — recipe cards specify critical failure consequences per profession.
+- Substituted materials are always consumed on any failure.
+
+### Magic Treasures — Attunement & Binding (§7.1–7.4)
+- **§7.1 Attunement Slots:** Scale by realm (1 slot at Realms 1–2, up to 5 at Realm 8).
+- **§7.2 Realm Gate:** Hard gate — cannot attune above current Major Realm. Forced attempt generates Tribulation Failure Strain.
+- **§7.3 Binding Types:** Blood Binding (HP cost), Soul Binding (Qi + Strain), Life Binding (both combined, item shatters on death), Contract (CRM roll, for sentient treasures).
+- **§7.4 Severance:** Voluntary release = clean, no cost. Forced severance = Strain on original binder. Life Binding broken by death = item shatters or goes dormant.
+
+### Magic Treasures — Item Activation (§7.5)
+- 1 AP cost in combat (consistent with §2.4 recovery item rule). No AP cost outside combat.
+- Two Qi source modes: Cultivator-Qi (draws from pool, overdraft rules apply) vs. Independent Charges (discrete, no overdraft).
+- Cursed/forbidden items can carry a printed Strain cost on the card (same scale as §5.7 forbidden techniques).
+- Charge recharge defined per item card — no universal rule.
+
+### Checklist Progress
+| Status | Item |
+| :----: | :--- |
+| ✅ | Establish crafting failure consequences |
+| ✅ | Define Magic Treasure attunement and binding limits |
+| ✅ | Establish item activation rules |
+
+### Remaining Open Items (as of end of session)
+- Realm-specific skill unlock list (8 realms, one per Major Realm breakthrough).
+- Web-based character sheet and party database frontend.
+
+---
+
+## Session 5 — 2026-05-27
+
+### Beast System Ruleset (§8)
+
+Designed and documented the full beast system from scratch.
+
+**§8.1 Beast Attributes**
+- Full 6-stat block: STR / AGI / CON / SPI / INT / CRM — consistent with character stat block.
+- HP and Qi use identical formulas to characters (CON/SPI × Stage + 10).
+- Beasts default to Early rank of their realm unless the GM specifies otherwise on the card.
+
+**§8.2 Taming Prerequisites — Dual Gate**
+- Gate 1 (Realm): character realm must be ≥ beast realm. Hard block, no exceptions.
+- Gate 2 (Profession): Beast Taming rank gates max tameable realm: Rank 0 = untameable, Rank 1 = Realms 1–2, Rank 2 = Realms 3–4, Rank 3 = Realms 5–6, Rank 4 = Realms 7–8. Both gates must pass.
+
+**§8.3 Taming Resolution**
+- Prerequisite: beast must be reduced to ≤10% max HP before any roll.
+- Roll: 1d20 + CRM modifier vs beast's Taming DC.
+- Success: beast tamed. Failure: beast recovers to 25% HP, turns hostile, DC +2 for all subsequent attempts (penalty persists across sessions).
+
+**§8.4 Tamed Companions & Companion Slots**
+- Companion Slots = `floor(CRM / 3) + 1` (minimum 1). Slots scale up to 3 at CRM 18–20.
+- Tamed companions act on their own initiative, are player-controlled, use their Tamed Ability list (not Wild).
+- Standard 3 AP action economy in combat.
+
+**§8.5 Beasts as Mounts**
+- Mount capability defined per card. Mounting/dismounting costs 1 AP.
+- Card specifies speed bonus and overland travel modifier for downtime journeys.
+
+**§8.6 Loot & Drops**
+- Material tier of drops maps directly to beast realm (Mortal/Spirit/Heaven/Divine, matching §6.1 crafting tiers).
+- Quantity and quality are GM-adjudicated and noted on the beast card.
+
+### Beast Card Creator (VTT)
+
+Built `BeastCreator` form and `BeastCard` display component in the GM Dashboard Library tab.
+
+- **Form fields**: name, beast type, realm, taming DC, description, 6-attribute grid, wild abilities, tamed abilities, weaknesses, resistances, loot table, mount stats.
+- **Card display**: expandable row — collapsed shows name / type / realm / taming DC; expanded shows two-panel layout (left: lore + drops + mount; right: attributes, taming requirements auto-derived from realm, wild/tamed abilities, weaknesses/resistances).
+- **Taming requirements** auto-displayed on card: required character realm, Beast Taming rank gate (`Math.ceil(realm / 2)`), and roll formula.
+- **`+ New Beast`** toggle button added to GM Library tab; mutually exclusive with Technique Creator and Assign Technique panels.
+- `Beast` interface in `types.ts` updated: `abilities` field replaced with `wildAbilities` + `tamedAbilities`; added `lootTable`, `mountStats`, `weaknesses`, `resistances`.
+
+### Checklist Progress
+| Status | Item |
+| :----: | :--- |
+| ✅ | Ruleset for beasts (§8) |
+| ✅ | Beast card creator (GM Library VTT) |
+
+### Profession Rank System (§6.3 revision + §6.5 new)
+
+**§6.3 revised** — rank gate table updated from 8-rank (1/3/5/7) to 5-rank (0–4) system. Beast Taming gate cross-referenced to §8.2.
+
+**§6.5 new — Profession Rank Advancement**
+
+*Crafting professions (Alchemy, Weapon Refining, Array Master, Talisman Crafting):*
+- Rank advances by accumulating successful craft counts (any tier counts).
+- Thresholds: 0–9 = Rank 0 (Untrained), 10 = Rank 1, 100 = Rank 2, 200 = Rank 3, 500 = Rank 4 (Master).
+- Cultivation realm cap: `⌈Realm ÷ 2⌉` — Realm 1–2 cap Rank 1, Realm 3–4 cap Rank 2, etc. Counts accumulate past the cap; rank auto-advances when realm rises.
+
+*Beast Taming (exception):*
+- Rank does NOT advance by craft count. Each qualifying Beast Taming technique learned raises rank by 1.
+- Same realm cap applies. Qualifying techniques are flagged on the technique card.
+
+**VTT — Profession display rebuilt (CharacterSheet.tsx)**
+- `getProfessionRank`, `getMaxProfessionRank`, `getProfessionNextThreshold` added to `gameFormulas.ts`.
+- `incrementProfessionCraft` action added to `campaignStore.ts`.
+- `professions` field semantics changed: value now stores **cumulative craft count** (was raw rank). Rank is derived via `getProfessionRank(count)`.
+- Professions display updated: shows computed rank, craft count progress toward next threshold, realm cap indicator, and `+1` log craft button. Button disabled when at realm cap or global max (Rank 4).
+
+### Checklist Progress
+| Status | Item |
+| :----: | :--- |
+| ✅ | Profession rank structure — advancement rules, rank caps, Beast Taming exception |
+| ✅ | Crafting profession rank increment button (VTT) |
+
+### Remaining Open Items (as of end of session)
+- Realm-specific skill unlock list (8 realms, one per Major Realm breakthrough).
+- VTT: Enemy / NPC sheet creator.
+- VTT: Magic Treasure card creator.
+- VTT: Crafting Recipe card creator.

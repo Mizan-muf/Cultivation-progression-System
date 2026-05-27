@@ -4,6 +4,7 @@
 
 ## TABLE OF CONTENTS
 
+0. [Character Creation](#0-character-creation)
 1. [Character Sheet](#1-character-sheet)
 2. [Core Rules](#2-core-rules)
    - 2.1 Core Attributes
@@ -27,6 +28,7 @@
      - Strain Capacity Scaling
    - 3.5 Comprehension Mechanics
    - 3.6 Cultivation Technique Switching
+   - 3.7 Realm Skill List
 4. [Spirit Roots](#4-spirit-roots)
    - 4.1 Trade-Off Spectrum
    - 4.2 Spirit Root Grades
@@ -41,6 +43,58 @@
    - 5.6 Effect Scope by Realm and Rank
    - 5.7 Strain Costs for Forbidden Techniques
    - 5.8 Worked Examples
+6. [Crafting](#6-crafting)
+   - 6.1 Material Tiers
+   - 6.2 Crafting Time Costs
+   - 6.3 Profession Rank Gate
+   - 6.4 Crafting Failure Consequences
+   - 6.5 Profession Rank Advancement
+7. [Magic Treasures](#7-magic-treasures)
+   - 7.1 Attunement Slots
+   - 7.2 Realm Gate
+   - 7.3 Binding Types
+   - 7.4 Breaking a Binding
+   - 7.5 Item Activation Rules
+8. [Beast System](#8-beast-system)
+   - 8.1 Beast Attributes
+   - 8.2 Taming Prerequisites
+   - 8.3 Taming Resolution
+   - 8.4 Tamed Companions & Companion Slots
+   - 8.5 Beasts as Mounts
+   - 8.6 Loot & Drops
+
+---
+
+## 0. CHARACTER CREATION
+
+### Starting Attributes
+
+New characters begin at **Realm 1 (Body Tempering), Early Sub-Realm** and distribute **20 points** across all six core attributes:
+
+| Constraint | Rule |
+| :--------- | :--- |
+| Minimum per attribute at creation | 1 |
+| Maximum per attribute at creation | 8 |
+| Total points to distribute | 20 |
+
+All 20 points must be fully spent before play begins. Additional attribute points are earned through Sub-Realm advancement (+1 per Sub-Realm) and Major Realm breakthroughs (+3 per Major Realm).
+
+### Starting State
+
+| Field | Starting Value |
+| :---- | :------------- |
+| Realm | 1 — Body Tempering |
+| Rank | Early |
+| Spirit Energy (SE) | 0 |
+| Strain | 0 / 12 |
+| Max HP | floor(CON × 1.00) + 10 |
+| Max Qi | floor(SPI × 1.00) + 10 |
+| Attunement Slots | 1 |
+| Unspent Attribute Points | 0 |
+
+### Spirit Root & Physique
+
+Both are determined randomly during character creation using the Cultivation Wheel spinners. See §4 for full mechanics. Spirit Root determines elemental affinity, SE gain rate, and breakthrough difficulty. Physique grants passive traits defined per physique type.
 
 ---
 
@@ -546,7 +600,7 @@ Upon successfully completing a Tribulation and entering the Early Sub-Realm of t
 | **Equipment Grade Unlock** | Can now attune to and use artifacts of the next realm grade |
 | **Max Strain +1** | Permanent increase to Strain capacity (see Strain Capacity Scaling below) |
 | **Technique Realm Unlock** | Can now learn techniques native to the new Major Realm |
-| **Realm Skill Unlock** | Gain one realm-specific passive or active skill *(list TBD — separate task)* |
+| **Realm Skill Unlock** | Gain one realm-specific passive or active skill — see §3.7 Realm Skill List |
 
 #### Cultivation Regression
 
@@ -570,37 +624,6 @@ Maximum Strain starts at **12** at Realm 1 and increases by **+1 per Major Realm
 | 7 | Void Tribulation | 18 | 0–4 | 5–9 | 10–13 | 14–17 | 18 |
 | 8 | Immortal Ascension | 20 | 0–5 | 6–10 | 11–15 | 16–19 | 20 |
 
-
----
-
-### 3.6 Cultivation Technique Switching
-
-A character may only have one **Primary Cultivation Technique** active at a time. Switching requires purging the current technique's Qi pathways from the meridian network.
-
-**Requirements:**
-- Current Strain must be below the Overloaded threshold before switching begins.
-- 1 Downtime Unit (1 in-game week) of uninterrupted secluded cultivation.
-
-**Roll:** 1d20 + SPI modifier vs. **DC 12 + current Realm level**
-
-| Realm | Effective DC |
-| :---: | :----------: |
-| 1 | 13 |
-| 2 | 14 |
-| 3 | 15 |
-| 4 | 16 |
-| 5 | 17 |
-| 6 | 18 |
-| 7 | 19 |
-| 8 | 20 |
-
-| Result | Outcome |
-| :----- | :------ |
-| **Success** | Technique switches. Strain +1. |
-| **Failure** | Switch fails. Strain +2. Reattempt allowed next Downtime Unit. |
-| **Critical Failure (nat 1)** | Switch fails. Strain +3. Cannot reattempt for 2 Downtime Units. |
-
-Strain cost on success is unavoidable — purging old Qi pathways damages the meridian network regardless of outcome.
 
 ---
 
@@ -640,6 +663,105 @@ Techniques are **hard-gated by Realm** — a character cannot attempt to learn a
 **Failure:** Time is spent. Reattempt on the next Downtime Unit.
 
 **Critical Failure (nat 1):** Internalized flaw — next attempt at this specific technique costs double Downtime Units.
+
+---
+
+### 3.6 Cultivation Technique Switching
+
+A character may only have one **Primary Cultivation Technique** active at a time. Switching requires purging the current technique's Qi pathways from the meridian network.
+
+**Requirements:**
+- Current Strain must be below the Overloaded threshold before switching begins.
+- 1 Downtime Unit (1 in-game week) of uninterrupted secluded cultivation.
+
+**Roll:** 1d20 + SPI modifier vs. **DC 12 + current Realm level**
+
+| Realm | Effective DC |
+| :---: | :----------: |
+| 1 | 13 |
+| 2 | 14 |
+| 3 | 15 |
+| 4 | 16 |
+| 5 | 17 |
+| 6 | 18 |
+| 7 | 19 |
+| 8 | 20 |
+
+| Result | Outcome |
+| :----- | :------ |
+| **Success** | Technique switches. Strain +1. |
+| **Failure** | Switch fails. Strain +2. Reattempt allowed next Downtime Unit. |
+| **Critical Failure (nat 1)** | Switch fails. Strain +3. Cannot reattempt for 2 Downtime Units. |
+
+Strain cost on success is unavoidable — purging old Qi pathways damages the meridian network regardless of outcome.
+
+---
+
+### 3.7 Realm Skill List
+
+Each Major Realm breakthrough grants one realm-specific skill. Skills are fixed — every character entering a given realm gains the same skill. Skills persist permanently and do not require activation slots.
+
+---
+
+#### Realm 1 — Body Tempering — Tempered Body *(Passive)*
+
+**Combat:** Gain permanent +1 Physical DR. Stacks with all other Physical DR sources.
+
+**Utility:** Immune to non-magical environmental hazards. Extreme temperatures, rough terrain, and altitude impose no movement penalties or damage. No longer requires sleep — 1 hour of stillness counts as a full night's rest for non-cultivation purposes.
+
+---
+
+#### Realm 2 — Qi Condensation — Qi Sense *(Passive)*
+
+**Combat:** Can identify the realm of any cultivator within 30 feet if they are of equal or lower realm. Cultivators of a higher realm register only as an unreadable presence — their exact realm cannot be determined.
+
+**Utility:** Passively detect Qi in objects, locations, and living beings within 30 feet. Can roughly identify the realm grade of spiritual materials and detect active formations or arrays. Instinctively knows whether a potential meditation site carries a favorable Spirit Root environment multiplier (§3.2).
+
+---
+
+#### Realm 3 — Foundation Establishment — Unshakeable Foundation *(Passive)*
+
+Strain from Tribulation failure is reduced by 1 (minimum 1). Extended Meditation clears 2 Strain stages instead of 1.
+
+---
+
+#### Realm 4 — Core Formation — Golden Core Surge *(Active)*
+
+**Combat:** Free action (no AP cost), 1 use per in-session period. Before declaring a technique on your turn: halve its Qi cost (round down) and increase its damage by 50% (round down). Cannot be applied to Ultimate abilities.
+
+**Utility:** Once per downtime period, channel Golden Core energy into any crafting attempt — reduce its DU cost by 1 (minimum 1). Applies to any profession.
+
+---
+
+#### Realm 5 — Nascent Soul — Soul Projection *(Active)*
+
+**Combat:** 2 AP, 20 Qi, 1 use per combat encounter. Project the Nascent Soul as an independent spiritual avatar for 3 turns. The projection moves and uses Spiritual techniques at full stats, is immune to Physical attacks, and cannot deal physical damage. The physical body is stationary (Physical DR drops to 0) during projection. The projection collapses immediately if the body takes any damage.
+
+**Utility:** Outside combat, sustain the projection for up to 1 hour at a cost of 3 Qi per 10 minutes. The soul can scout, pass through non-sealed barriers, and observe without being detected. Cannot manipulate physical objects. Can communicate back to the physical body at up to 300 feet range.
+
+---
+
+#### Realm 6 — Soul Transformation — Unbreakable Will *(Passive)*
+
+**Combat:** Immune to all mental status effects (fear, charm, confusion, soul attacks). Strain gained from any non-Tribulation source is reduced by 1 (minimum 1 per trigger).
+
+---
+
+#### Realm 7 — Void Tribulation — Void Step *(Active)*
+
+**Combat:** 1 AP, 25 Qi, 1 use per combat encounter. Instantly teleport up to 60 tiles to any visible location. Cannot be interrupted, does not provoke opportunity attacks, and bypasses unsealed terrain and barriers.
+
+**Utility:** Outside combat, Void Step has no tile range limit — any visible destination within line of sight qualifies. Once per day, spend 5 minutes in meditation and 30 Qi to perform a **Void Walk**: teleport to any location previously visited in person, up to 10 miles away.
+
+---
+
+#### Realm 8 — Immortal Ascension — Heaven's Authority *(Active + Passive)*
+
+**Active — Combat:** 3 AP (full turn), 50 Qi, 1 use per session. Emanate immortal pressure in a 15-tile radius. All enemies within range whose realm is lower than yours must roll SPI vs. DC (12 + your SPI modifier) or become Suppressed for 3 turns: −5 to all rolls, cannot use techniques above Realm 6. Enemies who succeed the roll are still shaken: −2 to all rolls for 1 turn.
+
+**Passive — Combat:** No longer gain Strain from Qi overdraft when casting non-forbidden techniques.
+
+**Utility:** Social rolls against lower-realm individuals gain +3. Once per session, declare a binding spiritual edict — mortals and Realm 1–3 cultivators who hear it roll SPI vs. DC 18 or feel compelled to comply. The compulsion only applies to non-self-harming directives. Those who resist suffer −3 to all rolls while actively defying the edict.
 
 ---
 
@@ -810,6 +932,8 @@ The table below offers a suggested average output range per realm, rank, and AP 
 | 7 | Peak | 36–52 | 70–102 | 116–168 |
 | 8 | Early | 37–55 | 72–105 | 120–173 |
 | 8 | Peak | 44–64 | 85–123 | 142–205 |
+
+---
 
 Going outside these ranges is fine. A technique with a powerful effect but modest damage, or a pure damage technique with no secondary effect, are both valid designs.
 
@@ -1019,3 +1143,365 @@ Five technique cards, one per type. Each includes an alignment note showing how 
 | **Notes** | Forbidden. Cannot be used while at the Critical Strain stage. Strain cost is paid whether or not the attack lands. |
 
 *Alignment: Realm 6 Early, 2 AP. Pool ~112; suggested range 22–34, Qi 26 in range. With SPI mod +6: (6×6)+2d10 = 36+~11 avg = ~47 — slightly below the Realm 6 Early 2 AP suggestion (~40–65). Intentionally offset by the +3 Strain cost and technique-suppression effect. At Realm 6 (Max Strain 17), +3 from a clear state puts the character at 3 Strain — no penalty yet. From an already-Strained state, it pushes toward Overloaded. Calibrated as a high-risk play.*
+
+---
+
+## 6. CRAFTING
+
+The five Life Professions listed on the character sheet (§1) are governed by the rules in this section. Crafting resolution rolls use the attribute mappings established in §2.3. The rules here cover material requirements and time costs; failure consequences are in §6.4.
+
+**Professions and governing attributes:**
+
+| Profession | Governing Stat | Output |
+| :--------- | :------------: | :----- |
+| Alchemy | INT | Pills, potions, elixirs |
+| Weapon Refining | STR | Weapons, armor, physical artifacts |
+| Array Master | SPI | Formations, traps, spatial arrays |
+| Talisman Crafting | AGI | Scrolls, paper talismans, seals |
+| Beast Taming | CRM | Contracted beasts, trained mounts |
+
+---
+
+### 6.1 Material Tiers
+
+All crafting materials belong to one of four universal tiers. A recipe's required tier is determined by the realm of the item being produced.
+
+| Tier | Item Realm | Look & Feel | Ambient Effect | Availability |
+| :--- | :--------: | :---------- | :------------- | :----------: |
+| **Mortal** | 1–2 | Dull colors, rough texture, minor impurities. Looks entirely mundane. | Barely noticeable. Typically processed in bulk. | Common |
+| **Spirit** | 3–4 | Faint unnatural glow. Distinct pure scent. Ores become heavy and smooth. | Touching or inhaling causes immediate refreshment or mild energy. | Uncommon |
+| **Heaven** | 5–6 | Physically mutated — a plant may resemble a human face; an ore becomes glass-like and translucent. | Emits intense pressure. Weaker cultivators may struggle to breathe, be burned, or frozen just by proximity. | Rare |
+| **Divine** | 7–8 | Triggers environmental anomalies when unearthed — darkened sky, lightning strikes, sudden storms. | Fully sentient. The material will actively flee, resist handling, or attack the harvester. | Mythic |
+
+**The 4 Golden Rules of Material Quality**
+
+These apply universally across all material types (herb, ore, beast core, flame, blood, bone):
+
+| Rule | Description |
+| :--- | :---------- |
+| **Age Rule** | Older is always better. 10 years = Good, 100 years = Great, 1,000 years = Treasure, 10,000 years = Mythical. |
+| **Clarity Rule** | Higher tiers are clearer and more flawless. Lower-tier materials are cloudy, rocky, and mottled. |
+| **Danger Rule** | Heaven Tier and above are actively hostile. Harvesting without sufficient cultivation will cause injury. |
+| **Consciousness Rule** | Divine Tier materials are sentient and will resist. They cannot be harvested through force alone — approach must match their nature. |
+
+**Material quantity** per recipe is defined on the individual item card — there is no universal count rule.
+
+---
+
+### 6.2 Crafting Time Costs
+
+Crafting time is measured in **Downtime Units** (1 DU = 1 in-game week), consistent with §3.5.
+
+The table below is a reference for GMs and item designers. Individual item cards may specify costs within or outside these ranges.
+
+| Material Tier | Item Realm | Base DU Range |
+| :----------- | :--------: | :-----------: |
+| Mortal | 1–2 | 1–2 |
+| Spirit | 3–4 | 3–5 |
+| Heaven | 5–6 | 6–9 |
+| Divine | 7–8 | 10–14 |
+
+**DU Modifiers**
+
+| Condition | DU Modifier |
+| :-------- | :---------: |
+| Crafting from a written formula or blueprint | −1 |
+| Crafting under a master's direct supervision | −2 |
+| First attempt at this specific recipe | +1 |
+| Substituting a non-critical material | +1 |
+| Current Strain is Overloaded or higher | +2 |
+
+Minimum crafting time is **1 DU** regardless of modifiers.
+
+---
+
+### 6.3 Profession Rank Gate
+
+A crafter cannot produce items above their current **Profession Rank**. Profession Ranks run from 0 (Untrained) to 4 (Master). Rank advances through practice and is separately capped by cultivation realm (see §6.5).
+
+| Item Tier | Item Realm | Minimum Profession Rank |
+| :-------- | :--------: | :---------------------: |
+| Mortal | 1–2 | Rank 1 |
+| Spirit | 3–4 | Rank 2 |
+| Heaven | 5–6 | Rank 3 |
+| Divine | 7–8 | Rank 4 |
+
+Rank 0 (Untrained) characters may attempt Mortal-tier recipes to accumulate practice counts toward Rank 1, but the attempt is made with no profession training — DC penalties and failure consequences apply at full weight.
+
+**Beast Taming gate** (consistent with §8.2):
+
+| Beast Taming Rank | Maximum Beast Realm |
+| :---------------: | :-----------------: |
+| 0 (Untrained) | Cannot tame |
+| 1 | Realms 1–2 |
+| 2 | Realms 3–4 |
+| 3 | Realms 5–6 |
+| 4 | Realms 7–8 |
+
+---
+
+### 6.4 Crafting Failure Consequences
+
+Crafting outcomes are resolved against the crafting DC using a tiered system.
+
+| Outcome | Condition | Consequences |
+| :------ | :-------- | :----------- |
+| **Success** | Roll meets or exceeds DC | Item is produced as specified. All materials consumed normally. |
+| **Failure** | Roll falls below DC | Partial material loss (GM determines which materials are wasted — typically 50% of listed ingredients). The Downtime Units are still spent. No item is produced. Reattempt allowed next DU. |
+| **Critical Failure** | Natural 1 | All materials consumed and destroyed. The Downtime Units are still spent. Additional consequence defined per recipe card (see note below). |
+
+**Critical failure additional consequences** are specified on the recipe card rather than by a universal table — different professions and recipes carry different risks (furnace explosion, toxic fumes, formation backlash, Qi arc, forge accident, etc.). If a recipe card does not specify an additional consequence, a critical failure results only in total material loss.
+
+**Note:** Substituted materials (see §6.2 modifiers) are consumed on any failure outcome, regardless of whether they were the cause of the failure.
+
+---
+
+### 6.5 Profession Rank Advancement
+
+**Crafting professions (Alchemy, Weapon Refining, Array Master, Talisman Crafting)**
+
+Rank advances through **accumulated successful crafts** — any completed craft that meets or exceeds its DC counts, regardless of material tier. Failed crafts and critical failures (nat 1) do not count.
+
+**Cumulative craft count thresholds:**
+
+| Total Successful Crafts | Profession Rank |
+| :---------------------: | :-------------: |
+| 0–9 | 0 — Untrained |
+| 10–99 | 1 — Apprentice |
+| 100–199 | 2 — Journeyman |
+| 200–499 | 3 — Expert |
+| 500+ | 4 — Master |
+
+**Cultivation realm cap**
+
+A crafting profession rank cannot exceed `⌈Realm ÷ 2⌉`, regardless of craft count. Practice counts above the cap still accumulate — the rank advances automatically once the realm cap rises.
+
+| Cultivation Realm | Max Profession Rank |
+| :---------------: | :-----------------: |
+| 1–2 | 1 |
+| 3–4 | 2 |
+| 5–6 | 3 |
+| 7–8 | 4 |
+
+*Example: a Realm 2 cultivator with 150 successful alchemy crafts has the practice count for Rank 2 but is held at Rank 1 until they break through to Realm 3.*
+
+---
+
+**Beast Taming**
+
+Beast Taming rank does **not** advance through craft count. It advances by learning specific Beast Taming techniques — each qualifying technique learned raises the rank by 1. The cultivation realm cap (`⌈Realm ÷ 2⌉`) still applies; a technique cannot push rank beyond the cap for the cultivator's current realm.
+
+Beast Taming techniques that qualify as rank-raising are flagged on the technique card. Learning the same technique twice does not grant additional rank.
+
+---
+
+## 7. MAGIC TREASURES
+
+Magic Treasures are artifacts, weapons, tools, and spiritual objects infused with Qi or bound to higher-order formations. To use a Magic Treasure, a cultivator must **bind** it and occupy one of their available **Attunement Slots**.
+
+---
+
+### 7.1 Attunement Slots
+
+The number of Magic Treasures a cultivator can maintain simultaneously is limited by their Major Realm. Attunement capacity increases every two breakthroughs.
+
+| Realm | Major Realm | Attunement Slots |
+| :---: | :---------- | :--------------: |
+| 1 | Body Tempering | 1 |
+| 2 | Qi Condensation | 1 |
+| 3 | Foundation Establishment | 2 |
+| 4 | Core Formation | 2 |
+| 5 | Nascent Soul | 3 |
+| 6 | Soul Transformation | 3 |
+| 7 | Void Tribulation | 4 |
+| 8 | Immortal Ascension | 5 |
+
+A cultivator may own more treasures than their slot limit, but unequipped treasures provide no passive bonuses and cannot be activated. Swapping an equipped treasure for an unequipped one requires performing the binding process anew (see §7.3).
+
+---
+
+### 7.2 Realm Gate
+
+A cultivator cannot attune to or use a Magic Treasure above their current Major Realm. This is consistent with the Equipment Grade Unlock granted at each Major Realm breakthrough (§3.4).
+
+Attempting to forcibly attune to a higher-realm treasure overloads the cultivator's meridians — the attempt fails and generates Strain equal to the Tribulation Failure value for the cultivator's current realm (see §2.6 Strain Triggers).
+
+---
+
+### 7.3 Binding Types
+
+The binding method is specified on the individual treasure card. Different treasure types require different forms of connection between cultivator and item. A treasure can only be bound using the method it requires.
+
+| Binding Type | Requirement | Mechanic | Notes |
+| :----------- | :---------- | :------- | :---- |
+| **Blood Binding** | Physical contact + deliberate blood offering | Lose HP equal to 10% of current Max HP (rounded down, minimum 1). Binding takes 1 hour. | The bond is physical. The item recognizes the cultivator's blood signature. Any cultivator of sufficient realm can attempt to overwrite a Blood Binding by shedding more blood than the original binder (GM adjudicates contested scenario). |
+| **Soul Binding** | Meditation + Qi expenditure | Spend 20% of current Max Qi and take **+2 Strain**. Binding takes 4 hours (counts as one Extended Meditation period). | The bond is spiritual. Only the bound cultivator can activate the item's abilities. Soul Binding cannot be overwritten while the original binder is alive. |
+| **Life Binding** | Blood Binding + Soul Binding (both required) | Costs of both combined: 10% Max HP + 20% Max Qi + **+3 Strain**. Takes 4 hours. | The strongest personal bond. The item resonates with the cultivator's life force — if the cultivator dies, the item shatters or becomes dormant until recovered by a cultivator of equal or higher realm. |
+| **Contract** | Negotiation, taming, or formal spiritual oath | Resolved as a CRM-governed roll (see §2.3). DC and process defined per contract type on the treasure card. | Used for sentient treasures, spirit beasts serving as artifacts, or living weapons with their own will. Contract terms and violations are defined per item card. |
+
+A cultivator may not hold more active bindings than their current Attunement Slots allow (§7.1).
+
+---
+
+### 7.4 Breaking a Binding
+
+Bindings can be voluntarily severed or forcibly broken.
+
+| Situation | Method | Consequence |
+| :-------- | :----- | :---------- |
+| **Voluntary release** (any binding) | Deliberate meditation, 1 hour | Binding ends cleanly. Attunement slot freed. No Strain. |
+| **Forced severance** (another cultivator breaking your binding) | Realm-appropriate ritual — GM adjudicates | The original binder takes Strain equal to the Tribulation Failure value for their current realm (§2.6). |
+| **Life Binding broken by death** | Automatic on owner death | Item shatters or enters dormancy — defined per item card. |
+| **Contract violation** | Automatic on breach of stated terms | Consequences defined per contract card. May include Strain, debuffs, or hostile action from the treasure. |
+
+A voluntarily released treasure retains no memory of the prior binding — it can be immediately bound by another cultivator of sufficient realm.
+
+---
+
+### 7.5 Item Activation Rules
+
+#### AP Cost
+
+Activating a Magic Treasure in combat costs **1 AP**, consistent with consuming recovery items (§2.4). Activation outside combat has no AP cost — only time, as specified on the item card.
+
+#### Qi Source
+
+Each item card specifies one of two activation modes:
+
+| Mode | Description | Qi Overdraft |
+| :--- | :---------- | :----------- |
+| **Cultivator-Qi** | Activation draws directly from the cultivator's Qi pool. The Qi cost is listed on the card. | If the cultivator's Qi pool cannot cover the activation cost, the shortfall triggers Qi overdraft Strain (§2.6 Overdraft Table), same as techniques. |
+| **Independent Charges** | The item carries its own internal Qi reservoir, expressed as a charge count (e.g., "3 charges"). Activation spends one or more charges with no cost to the cultivator's pool. | Overdraft does not apply — charges are discrete. Attempting to activate an item with 0 charges fails; no Strain is generated. |
+
+Items that do not specify a mode in their card are assumed to use **Cultivator-Qi**.
+
+#### Strain Generation
+
+Most items do not impose Strain. A Strain cost printed on the item card marks it as forbidden, cursed, or spiritually dangerous — this cost is paid on activation regardless of whether the cultivator has sufficient Qi.
+
+Cursed item Strain costs follow the same scale as forbidden techniques (§5.7) and stack with any Qi overdraft Strain if both apply simultaneously.
+
+#### Charge Replenishment
+
+Recharge conditions are defined per item card. There is no universal recharge rule. An item card may specify: manual Qi channeling, Full Rest, Extended Meditation, a specific environment or ritual, or no recharge (single-use only).
+
+---
+
+## 8. BEAST SYSTEM
+
+Beasts serve four mechanical roles: **combat companions** (fight alongside the cultivator), **mounts** (travel and movement bonuses), **enemy encounters** (hostile opponents), and **crafting resources** (drop materials on death). A single beast card covers all four roles simultaneously — the card defines behaviour in each context.
+
+---
+
+### 8.1 Beast Attributes
+
+Beasts use the same six-attribute block as cultivators: STR / AGI / CON / SPI / INT / CRM.
+
+HP and Qi use identical formulas:
+- **Max HP** = `(CON × Stage) + 10`
+- **Max Qi** = `(SPI × Stage) + 10`
+- Stage is derived from the beast's realm using the same Early/Mid/Late/Peak offset as characters (§2.4).
+
+Beasts do not have a Rank within their realm unless specified by the GM on the card. For encounters, treat the beast as operating at the Early rank of its realm unless noted otherwise.
+
+---
+
+### 8.2 Taming Prerequisites
+
+Both gates must pass before a taming attempt is permitted. Failing either gate blocks the roll entirely.
+
+**Gate 1 — Realm**
+
+| Condition | Result |
+| :--- | :--- |
+| Character realm ≥ Beast realm | Gate passes |
+| Character realm < Beast realm | Hard block — taming cannot be attempted |
+
+**Gate 2 — Beast Taming Profession Rank**
+
+| Beast Taming Rank | Maximum Beast Realm |
+| :---------------: | :-----------------: |
+| 0 (Untrained) | Cannot tame |
+| 1 | Realms 1–2 |
+| 2 | Realms 3–4 |
+| 3 | Realms 5–6 |
+| 4 | Realms 7–8 |
+
+Both gates must be cleared. A cultivator at Realm 4 with Beast Taming Rank 1 cannot tame a Realm 3 beast — their profession rank is the limiting factor regardless of cultivation level.
+
+---
+
+### 8.3 Taming Resolution
+
+**Step 1 — Weaken**
+
+The beast must be reduced to **≤10% of its maximum HP** before any taming roll can be made. Attempting to roll before this threshold is not permitted.
+
+*Design intent: forces a deliberate in-combat decision — the party must pull their damage output at the right moment, creating risk of accidentally killing the target.*
+
+**Step 2 — Roll**
+
+Roll **1d20 + CRM modifier** vs the beast's printed **Taming DC**.
+
+| Outcome | Result |
+| :--- | :--- |
+| Roll ≥ DC | Beast tamed. Record as companion on character sheet. |
+| Roll < DC | Beast recovers to 25% HP and turns hostile. Taming DC increases by +2 for all subsequent attempts within the same encounter. |
+
+Taming DC for the same beast does not reset between sessions — if the party retreats and returns, the +2 penalty per failed attempt persists until the beast is either tamed or killed.
+
+---
+
+### 8.4 Tamed Companions & Companion Slots
+
+**Companion Slots**
+
+Each cultivator has a number of Companion Slots equal to `floor(CRM / 3) + 1` (minimum 1).
+
+| CRM Score | Modifier | Companion Slots |
+| :-------: | :------: | :-------------: |
+| 1–2 | +0 | 1 |
+| 3–5 | +1 | 1 |
+| 6–8 | +2 | 1 |
+| 9–11 | +3 | 2 |
+| 12–14 | +4 | 2 |
+| 15–17 | +5 | 2 |
+| 18–20 | +6 | 3 |
+
+A cultivator cannot hold more tamed beasts than their current Companion Slot count. Releasing a tamed beast frees the slot immediately. Releasing a Life-Bound beast follows the severance rules in §7.4.
+
+**Combat Behaviour**
+
+- Tamed companions act on their own initiative (rolled separately).
+- Player controls the companion's actions on their turn.
+- Tamed beasts use their **Tamed Ability** list, not their Wild Ability list.
+- Companions use 3 AP per turn using the same action economy as characters (§2.5).
+
+---
+
+### 8.5 Beasts as Mounts
+
+Whether a beast can serve as a mount is defined per card. Not all tamed beasts are mount-capable.
+
+Mount stats on the card specify:
+- **Speed bonus** — flat movement increase or multiplier relative to the character's base movement.
+- **Travel modifier** — overland travel time reduction for downtime journey calculations.
+
+Mounted combat uses standard movement rules. Mounting or dismounting costs 1 AP.
+
+---
+
+### 8.6 Loot & Drops
+
+When a beast is killed (rather than tamed), it drops materials per the **Loot / Drop Table** on its card. Drop table entries are freeform text — the GM defines quality and quantity per encounter context.
+
+Dropped materials feed directly into the crafting profession system (§6). A beast's realm determines the material tier of its drops:
+
+| Beast Realm | Material Tier |
+| :---------: | :-----------: |
+| 1–2 | Mortal |
+| 3–4 | Spirit |
+| 5–6 | Heaven |
+| 7–8 | Divine |
+
+The quality of individual drops within a tier (e.g., purity, potency) is GM-adjudicated and can be noted on the beast card.
