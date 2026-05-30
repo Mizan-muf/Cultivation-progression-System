@@ -277,7 +277,7 @@ All contested rolls and checks use:
 | Spiritual spells / Qi techniques | SPI |
 | Evasion | AGI |
 | Resistance (poison, debuffs) | CON |
-| Alchemy, Arrays, Talisman crafting | INT |
+| Alchemy| INT |
 | Weapon Refining | STR |
 | Beast Taming | CRM |
 | Breakthrough (Tribulation) | SPI — modified by Spirit Root grade (see §4.3) |
