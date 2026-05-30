@@ -367,8 +367,8 @@ When a character attacks without using a technique, apply the following base dam
 
 | Attack Type | Damage |
 | :---------- | :----- |
-| Martial (weapon / unarmed) | STR modifier |
-| Spiritual (raw Qi burst) | SPI modifier |
+| Martial (weapon / unarmed) | weapon Stats/STR modifier x d4 |
+| Spiritual (raw Qi burst) | SPI modifier x d4 |
 
 Basic attacks cost **no Qi and no Strain**.
 
